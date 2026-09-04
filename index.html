@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>국어 문학 퀴즈 아카이브 포털</title>
-    <!-- Tailwind CSS CDN (무설치 지원) -->
+    <title>경상여고 교과서 기반 문학 퀴즈 포털</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- html2pdf.js CDN (A4 PDF 즉시 변환) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <!-- 구글 폰트 Noto Sans KR -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         body {
@@ -22,8 +19,8 @@
             box-shadow: 0 16px 28px -6px rgba(15, 23, 42, 0.12), 0 8px 12px -4px rgba(15, 23, 42, 0.06);
         }
         .modal-bg {
-            background-color: rgba(15, 23, 42, 0.65);
-            backdrop-filter: blur(4px);
+            background-color: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(5px);
         }
         @media print {
             .no-print { display: none !important; }
@@ -31,29 +28,27 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
 
-    <!-- Top Navigation -->
-    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200 no-print">
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-sky-500 to-emerald-400 flex items-center justify-center text-white text-xl shadow-md font-black">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-sky-500 to-emerald-400 flex items-center justify-center text-white text-xl shadow font-black">
                     📚
                 </div>
                 <div>
-                    <h1 class="text-lg font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
-                        <span>문학 퀴즈 아카이브</span>
-                        <span class="text-xs bg-indigo-100 text-indigo-700 font-bold px-2 py-0.5 rounded-full border border-indigo-200">웹 공식 포털</span>
+                    <h1 class="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+                        <span>경상여고 문학 퀴즈</span>
+                        <span class="text-[11px] bg-indigo-100 text-indigo-700 font-bold px-2 py-0.5 rounded-full border border-indigo-200">교과서 통합</span>
                     </h1>
-                    <p class="text-xs text-slate-500 hidden sm:block">소설 · 극 · 시 인터랙티브 퀴즈 & 교실 수업 지원</p>
+                    <p class="text-[11px] text-slate-500 hidden sm:block">소설 3편 · 극문학 2편 · 현대시 1편 인터랙티브 퀴즈</p>
                 </div>
             </div>
 
-            <!-- Header Badges -->
-            <div class="flex items-center gap-2 sm:gap-4">
+            <div class="flex items-center gap-2 sm:gap-3">
                 <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    총 6편 제재 온라인 서비스
+                    총 6편 제재 수록
                 </span>
                 <button id="open-guide-btn" class="px-3 py-1.5 text-xs font-bold text-slate-700 hover:text-indigo-600 bg-slate-100 hover:bg-slate-200 rounded-lg transition">
                     💡 이용 가이드
@@ -62,98 +57,78 @@
         </div>
     </header>
 
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6 sm:space-y-8">
         
-        <!-- Hero Banner -->
+        <!-- Hero Section with Custom Title -->
         <section class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
             <div class="absolute -right-10 -bottom-10 w-72 h-72 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
             <div class="absolute right-1/4 -top-10 w-48 h-48 bg-sky-500/15 rounded-full blur-2xl pointer-events-none"></div>
             
-            <div class="relative z-10 max-w-3xl space-y-4">
+            <div class="relative z-10 max-w-3xl space-y-3 sm:space-y-4">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-white/10 text-sky-300 text-xs font-semibold backdrop-blur-sm">
-                    <span>✨ 국어 교과서 필수 갈래 완성 컬렉션 (인터넷 접속 가능)</span>
+                    <span>✨ 경상여고 국어과 교과서 필수 제재</span>
                 </div>
-                <h2 class="text-3xl sm:text-4xl font-black tracking-tight leading-tight">
+                <h2 class="text-2xl sm:text-4xl font-black tracking-tight leading-snug">
                     경상여고 교과서 기반 문학 퀴즈
                 </h2>
-                <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-                    선생님과 학생이 함께 만든 <span class="text-white font-semibold underline decoration-sky-400">소설 3편, 극문학 2편, 시 1편</span>의 모든 퀴즈가 준비되어 있습니다. 팀 대결 퀴즈 쇼부터 가로세로 퍼즐, PDF 문제지 내려받기까지 링크 하나로 접속해 보세요.
+                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                    선생님과 학생이 함께 즐기는 <span class="text-white font-semibold underline decoration-sky-400">소설 3편, 극문학 2편, 현대시 1편</span>의 실감형 퀴즈입니다. 팀 수와 팀원을 직접 설정하고, 대형 화면으로 정답을 확인하며 즐겨보세요!
                 </p>
 
-                <!-- Search & Filter Controls -->
-                <div class="pt-2 flex flex-col sm:flex-row gap-3">
+                <!-- Search & Reset -->
+                <div class="pt-2 flex flex-col sm:flex-row gap-2.5">
                     <div class="relative flex-1">
-                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                            🔍
-                        </span>
-                        <input id="search-input" type="text" placeholder="작품명(춘향전, 만세전, 파수꾼 등), 작가, 갈래 검색..." class="w-full pl-9 pr-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-sky-400 focus:bg-white/20 transition">
+                        <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">🔍</span>
+                        <input id="search-input" type="text" placeholder="작품명(춘향전, 겨울나들이, 파수꾼...), 작가, 키워드 검색..." class="w-full pl-10 pr-4 py-2.5 bg-white/10 border border-white/20 rounded-xl text-white placeholder-slate-400 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-sky-400 focus:bg-white/20 transition">
                     </div>
-                    <button id="reset-filter-btn" class="px-5 py-3 bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-sm rounded-xl transition shadow-md">
+                    <button id="reset-filter-btn" class="px-5 py-2.5 bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs sm:text-sm rounded-xl transition shadow">
                         전체 보기
                     </button>
                 </div>
             </div>
         </section>
 
-        <!-- Filter Tabs & Stats -->
-        <section class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4 no-print">
+        <section class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-200 pb-4 no-print">
             <div class="flex flex-wrap gap-2" id="filter-tabs">
-                <button data-category="all" class="filter-tab active px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-indigo-600 text-white shadow-sm transition">전체 (6)</button>
-                <button data-category="novel" class="filter-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">📖 소설 (3)</button>
-                <button data-category="play" class="filter-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">🎭 극문학 (2)</button>
-                <button data-category="poem" class="filter-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">📜 시 (1)</button>
-                <button data-category="team" class="filter-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">🏆 팀대결 쇼 (4)</button>
-                <button data-category="crossword" class="filter-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">🧩 가로세로 퍼즐 (1)</button>
+                <button data-category="all" class="filter-tab active px-3.5 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-sm transition">전체 (6)</button>
+                <button data-category="novel" class="filter-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 transition">📖 소설 (3)</button>
+                <button data-category="play" class="filter-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 transition">🎭 극문학 (2)</button>
+                <button data-category="poem" class="filter-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 transition">📜 시 (1)</button>
+                <button data-category="team" class="filter-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 transition">🏆 팀대결 쇼 (4)</button>
+                <button data-category="crossword" class="filter-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 transition">🧩 가로세로 (1)</button>
             </div>
 
             <div class="text-xs text-slate-500 flex items-center gap-3">
-                <span>교과서 수록 순</span>
-                <span class="text-slate-300">|</span>
-                <span id="card-counter" class="font-bold text-indigo-600">6개 작품 표시 중</span>
+                <span id="card-counter" class="font-bold text-indigo-600">6개 제재 등록됨</span>
             </div>
         </section>
 
-        <!-- Quiz Grid Section -->
+        <!-- Catalog Grid -->
         <section id="quiz-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Dynamically populated -->
-        </section>
-
-        <!-- Teaching Tips Banner -->
-        <section class="bg-indigo-50 border border-indigo-100 rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-3 text-indigo-950">
-                <span class="text-2xl">🌐</span>
-                <div class="text-sm">
-                    <p class="font-bold">웹 호스팅 안내: 학생들과 주소(URL) 하나로 즉시 수업 가능</p>
-                    <p class="text-indigo-700 text-xs mt-0.5">GitHub Pages에 등록되면 스마트폰, 태블릿, PC 등 어떤 기기에서든 앱 설치 없이 웹 주소로 동시 접속할 수 있습니다.</p>
-                </div>
-            </div>
-            <button id="view-curriculum-btn" class="shrink-0 px-4 py-2 bg-white text-indigo-700 hover:bg-indigo-100/70 border border-indigo-200 text-xs font-bold rounded-xl transition">
-                작품별 단원 정보
-            </button>
+            <!-- Populated dynamically -->
         </section>
     </main>
 
-    <!-- Integrated Quiz Player Modal -->
-    <div id="player-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 modal-bg">
-        <div id="player-modal-content" class="bg-white rounded-2xl shadow-2xl w-full max-w-5xl h-[92vh] flex flex-col overflow-hidden text-left border border-slate-200 transform transition-all scale-95 opacity-0">
+    <div id="player-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-5 modal-bg">
+        <div id="player-modal-content" class="bg-white rounded-2xl shadow-2xl w-full max-w-5xl h-[94vh] flex flex-col overflow-hidden border border-slate-200 transform transition-all scale-95 opacity-0">
             <!-- Modal Header -->
             <div id="modal-header-bar" class="p-4 sm:px-6 bg-slate-900 text-white flex justify-between items-center shrink-0">
-                <div class="flex items-center gap-3">
-                    <span id="modal-icon" class="text-2xl">🌸</span>
-                    <div>
+                <div class="flex items-center gap-3 min-w-0">
+                    <span id="modal-icon" class="text-2xl shrink-0">🌸</span>
+                    <div class="truncate">
                         <div class="flex items-center gap-2">
-                            <h3 id="modal-title" class="text-lg sm:text-xl font-black">작품 퀴즈 플레이어</h3>
-                            <span id="modal-badge" class="px-2 py-0.5 text-xs rounded-full font-bold bg-indigo-500 text-white">팀대결</span>
+                            <h3 id="modal-title" class="text-base sm:text-lg font-black truncate">작품 퀴즈 플레이어</h3>
+                            <span id="modal-badge" class="px-2 py-0.5 text-[10px] sm:text-xs rounded-full font-bold bg-indigo-500 text-white shrink-0">팀대결</span>
                         </div>
-                        <p id="modal-subtitle" class="text-xs text-slate-300 mt-0.5">작품 핵심 분석 & 실시간 인터랙티브 풀이</p>
+                        <p id="modal-subtitle" class="text-xs text-slate-300 mt-0.5 truncate"></p>
                     </div>
                 </div>
-                <div class="flex items-center gap-2">
-                    <button id="modal-pdf-btn" title="PDF 파일로 즉시 저장" class="p-2 px-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
-                        📥 <span>PDF 저장</span>
+                <div class="flex items-center gap-2 shrink-0">
+                    <button id="modal-pdf-btn" title="A4 시험지 PDF 다운로드" class="p-2 px-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition flex items-center gap-1 shadow-sm">
+                        📥 <span class="hidden sm:inline">PDF 저장</span>
                     </button>
-                    <button id="modal-print-btn" title="문제지 인쇄 / PDF 출력" class="p-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition flex items-center gap-1.5">
-                        🖨️ <span class="hidden sm:inline">문제지 인쇄</span>
+                    <button id="modal-print-btn" title="인쇄창 열기" class="p-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition flex items-center gap-1">
+                        🖨️ <span class="hidden sm:inline">인쇄</span>
                     </button>
                     <button id="close-modal-btn" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-rose-600 text-white text-lg font-bold flex items-center justify-center transition">
                         &times;
@@ -162,90 +137,75 @@
             </div>
 
             <!-- Modal Sub-nav Tabs -->
-            <div class="bg-slate-100 border-b border-slate-200 px-6 flex gap-4 text-xs sm:text-sm font-bold text-slate-600 shrink-0">
-                <button id="tab-btn-play" class="py-3 border-b-2 border-indigo-600 text-indigo-700">🎮 인터랙티브 플레이</button>
-                <button id="tab-btn-questions" class="py-3 border-b-2 border-transparent hover:text-slate-900">📝 전체 문항 & 해설집</button>
-                <button id="tab-btn-summary" class="py-3 border-b-2 border-transparent hover:text-slate-900">📖 작품 핵심 정리</button>
+            <div class="bg-slate-100 border-b border-slate-200 px-4 sm:px-6 flex gap-3 text-xs sm:text-sm font-bold text-slate-600 shrink-0 overflow-x-auto">
+                <button id="tab-btn-setup" class="py-3 border-b-2 border-transparent hover:text-slate-900 whitespace-nowrap">⚙️ 팀·팀원 설정</button>
+                <button id="tab-btn-play" class="py-3 border-b-2 border-indigo-600 text-indigo-700 whitespace-nowrap">🎮 인터랙티브 플레이</button>
+                <button id="tab-btn-questions" class="py-3 border-b-2 border-transparent hover:text-slate-900 whitespace-nowrap">📝 전체 문항 & 해설집</button>
+                <button id="tab-btn-summary" class="py-3 border-b-2 border-transparent hover:text-slate-900 whitespace-nowrap">📖 작품 핵심 정리</button>
             </div>
 
             <!-- Modal Body Scrollable Area -->
             <div id="modal-view-container" class="flex-1 overflow-y-auto p-4 sm:p-6 bg-slate-50">
-                <!-- Content will be rendered dynamically -->
+                <!-- Content injected dynamically -->
             </div>
         </div>
     </div>
 
-    <!-- Curriculum Guide Modal -->
+    <!-- Guide Modal -->
     <div id="guide-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-bg">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-6 space-y-4 max-h-[85vh] overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-xl w-full p-6 space-y-4 max-h-[85vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b pb-3">
-                <h3 class="text-xl font-bold text-slate-800">📖 국어 문학 퀴즈 아카이브 포털 안내</h3>
+                <h3 class="text-lg font-black text-slate-800">📖 경상여고 문학 퀴즈 가이드</h3>
                 <button id="close-guide-btn" class="text-slate-400 hover:text-slate-600 text-2xl font-bold">&times;</button>
             </div>
-            <div class="space-y-3 text-sm text-slate-600 leading-relaxed">
-                <p class="font-medium text-slate-800">국어 교과서 필수 6대 제재가 온라인에 완전 최적화된 상태로 수록되어 있습니다.</p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                    <div class="p-3 rounded-xl bg-blue-50 border border-blue-100">
-                        <p class="font-bold text-blue-900 text-xs">1. 춘향전 (고전 판소리계 소설)</p>
-                        <p class="text-xs text-blue-700 mt-1">20문항 팀 대결 쇼 / 10~30점 배점 / 질문함 지원</p>
-                    </div>
-                    <div class="p-3 rounded-xl bg-sky-50 border border-sky-100">
-                        <p class="font-bold text-sky-900 text-xs">2. 겨울나들이 (박완서 현대소설)</p>
-                        <p class="text-xs text-sky-700 mt-1">여로 구조, 오해와 이해, 대사업 20문항 퀴즈 쇼</p>
-                    </div>
-                    <div class="p-3 rounded-xl bg-amber-50 border border-amber-100">
-                        <p class="font-bold text-amber-900 text-xs">3. 만세전 (염상섭 현대소설)</p>
-                        <p class="text-xs text-amber-700 mt-1">20개 핵심 어휘 가로세로 퍼즐 & 플래시카드</p>
-                    </div>
-                    <div class="p-3 rounded-xl bg-purple-50 border border-purple-100">
-                        <p class="font-bold text-purple-900 text-xs">4. 봉산탈춤 (민속 가면극)</p>
-                        <p class="text-xs text-purple-700 mt-1">말뚝이 재담과 언어유희 20문항 팀 대결 쇼</p>
-                    </div>
-                    <div class="p-3 rounded-xl bg-rose-50 border border-rose-100">
-                        <p class="font-bold text-rose-900 text-xs">5. 파수꾼 (이강백 현대희곡)</p>
-                        <p class="text-xs text-rose-700 mt-1">이리와 흰구름 우화극 23문항 심층 퀴즈 쇼</p>
-                    </div>
-                    <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-100">
-                        <p class="font-bold text-emerald-900 text-xs">6. 모닥불 (백석 현대시)</p>
-                        <p class="text-xs text-emerald-700 mt-1">13문항 핵심 객관식 퀴즈 & 100점 채점기</p>
-                    </div>
+            <div class="space-y-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                <p class="font-bold text-slate-800">교과서 핵심 문학 6편이 완벽하게 정리되어 있습니다:</p>
+                <ul class="list-disc pl-4 space-y-1 text-slate-700">
+                    <li><strong>춘향전:</strong> 20문항 팀 대결 쇼 (10~30점 배점 & 행운의 객관식)</li>
+                    <li><strong>겨울나들이:</strong> 20문항 팀 대결 쇼 (여로 구조 및 상처·치유)</li>
+                    <li><strong>만세전:</strong> 20개 핵심 어휘 가로세로 낱말 퀴즈 & 플래시카드</li>
+                    <li><strong>봉산탈춤:</strong> 20문항 팀 대결 쇼 (양반 조롱과 언어유희, 춤의 기능)</li>
+                    <li><strong>파수꾼:</strong> 23문항 팀 대결 쇼 (이리와 흰 구름, 촌장의 궤변 풍자)</li>
+                    <li><strong>모닥불:</strong> 13문항 핵심 객관식 실시간 채점 퀴즈</li>
+                </ul>
+                <div class="p-3 bg-indigo-50 rounded-xl border border-indigo-100 text-indigo-900 text-xs">
+                    💡 <strong>[설정하기]</strong>를 눌러 반별 팀 수(2~5팀)와 팀원 이름을 등록한 후 플레이하면, 점수 부여 및 개인 순위가 자동으로 산출됩니다.
                 </div>
             </div>
             <div class="text-right pt-2">
-                <button id="close-guide-btn-bottom" class="px-5 py-2 bg-slate-800 text-white text-xs font-bold rounded-xl hover:bg-slate-700">확인 및 닫기</button>
+                <button id="close-guide-btn-bottom" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-xl transition">닫기</button>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500 no-print">
-        <p class="font-medium">국어 문학 인터랙티브 퀴즈 아카이브 포털 · GitHub Pages 무료 호스팅 배포판</p>
-        <p class="mt-1 text-slate-400">교과서 수록 6편 전편 탑재 · 교실 수업 및 스마트폰 자기주도 학습용</p>
+        <p class="font-bold text-slate-700">경상여자고등학교 교과서 기반 국어 문학 퀴즈 아카이브</p>
+        <p class="mt-1 text-slate-400">교실 전자칠판, 빔프로젝터, 스마트패드 및 모바일 완벽 호환</p>
     </footer>
 
     <script>
-        // --- Full Master Data for all 6 Works ---
         const literatureData = [
             {
                 id: 'chunhyang',
                 title: '춘향전 (春香傳)',
                 author: '작자 미상 (판소리계 소설)',
                 category: 'novel',
-                categoryLabel: '고전 소설 · 판소리계 소설',
+                categoryLabel: '고전 소설 · 판소리계',
                 mode: 'team',
-                modeLabel: '팀 대결 퀴즈 쇼 (Q&A 포함)',
+                modeLabel: '팀 대결 퀴즈 쇼',
                 color: 'from-rose-500 to-pink-600',
                 badgeBg: 'bg-rose-100 text-rose-700 border-rose-200',
                 icon: '🌸',
                 qCount: 20,
                 desc: '조선 후기 신분을 초월한 사랑과 탐관오리 변학도에 대한 저항을 다룬 대표 판소리계 소설입니다. 암행어사 출두 장면과 풍자, 해학을 다룹니다.',
-                tags: ['판소리계 소설', '암행어사 출두', '편집자적 논평', '언어유희', '질문함 지원'],
+                tags: ['판소리계 소설', '암행어사 출두', '편집자적 논평', '언어유희'],
                 summary: [
                     '갈래: 고전 소설, 판소리계 소설, 염정 소설',
                     '시점: 3인칭 전지적 시점',
                     '배경: 조선 후기 전라도 남원',
                     '주제: 신분을 초월한 지고지순한 사랑 / 부패한 지배 계층(탐관오리)에 대한 항거',
-                    '주요 특징: 운문체와 산문체의 혼재, 서술자의 개입(편집자적 논평), 장면의 극대화, 언어유희를 통한 희화화'
+                    '주요 특징: 운문체와 산문체의 혼재, 서술자의 개입(편집자적 논평), 장면의 극대화, 언어유희'
                 ],
                 questions: [
                     { points: 10, q: "이 소설의 시간적, 공간적 배경이 되는 시대와 고을 이름은 어디인가요?", a: "조선 시대 후기, 전라도 남원" },
@@ -260,11 +220,14 @@
                     { points: 20, q: "몽룡이 지은 한시를 읽고 사태의 심각성을 눈치채어 관속들을 단속한 관리는 누구인가요?", a: "운봉 영장 (운봉)" },
                     { points: 20, q: "어사 출두 장면처럼 특정 상황을 장황하게 나열하거나 과장하여 사실감과 리듬감을 주는 표현 기법은 무엇인가요?", a: "장면의 극대화 (확장적 문체)" },
                     { points: 20, q: "변학도가 걸인을 밀쳐낼 때 서술자가 '어찌 아니 명관인가'라고 표현한 것에 쓰인 기법은 무엇인가요?", a: "반어법 (반어적 표현)" },
+                    { points: 20, q: "몽룡의 한시 '촉루락시 민루락 가성고처 원성고'의 뜻은 무엇인가요?", a: "촛불 눈물 떨어질 때 백성 눈물 떨어지고, 노랫소리 높은 곳에 원망 소리 높았더라." },
                     { points: 30, q: "몽룡이 암행어사가 된 후 춘향을 시험하며 '내 수청도 거역할까'라고 말한 의도는 무엇인지 서술하시오.", a: "춘향이 끝까지 지조와 정절을 지키는지 확인하고 시험해 보기 위해" },
                     { points: 30, q: "암행어사 출두 시 수령들이 당황하여 탕건 대신 용수를 쓰거나 인궤 대신 강정을 드는 등의 행동이 주는 효과를 서술하시오.", a: "탐관오리들의 어리석고 당황한 모습을 희화화하고 풍자하여 웃음과 통쾌함을 준다." },
                     { points: 30, q: "춘향전의 결말에서 춘향이가 지조를 인정받아 임금에게 내림받은 칭호는 무엇인가요?", a: "정렬부인" },
                     { points: 30, q: "<춘향전>이 지닌 주제 의식을 '남녀 간의 관계'와 '사회적 측면' 두 가지 관점에서 서술하시오.", a: "남녀 간: 신분을 초월한 지고지순한 사랑 / 사회적: 부패한 지배 계층(탐관오리)에 대한 항거 및 인간 평등 사상" },
-                    { points: 30, q: "춘향이가 남원을 떠나며 왕유의 시구를 인용하여 안타까움을 나타낸 구절의 의미를 서술하시오.", a: "봄풀은 해마다 푸르지만 떠난 객은 돌아오지 않는다는 시구를 인용하여 남원을 떠나는 슬픔과 이별의 한을 드러낸다." }
+                    { points: 30, q: "춘향이가 남원을 떠나며 왕유의 시구를 인용하여 안타까움을 나타낸 구절의 의미를 서술하시오.", a: "봄풀은 해마다 푸르지만 떠난 객은 돌아오지 않는다는 시구를 인용하여 남원을 떠나는 슬픔과 이별의 한을 드러낸다." },
+                    { points: 30, q: "판소리계 소설 <춘향전>에 나타난 문체상의 가장 두드러진 특징은 무엇인가요?", a: "운문체와 산문체의 혼재 (3·4조, 4·4조 율격)" },
+                    { points: 30, q: "춘향전 결말에 나타난 한국 고전 소설의 대표적인 결말 구조는 무엇인가요?", a: "권선징악 및 인과응보에 기반한 행복한 결말(해피엔딩)" }
                 ]
             },
             {
@@ -292,18 +255,23 @@
                     { points: 10, q: "이 소설의 갈래는 현대 소설, 단편 소설, 그리고 또 무엇인가요?", a: "전쟁 분단 소설" },
                     { points: 10, q: "주인공 '나'가 허무함을 느끼고 무작정 떠난 곳은 어디인가요?", a: "온양" },
                     { points: 10, q: "주인공이 여인숙에서 만난 노파가 25년 동안 끊임없이 하던 행동은 무엇인가요?", a: "도리질" },
-                    { points: 10, q: "노파의 도리질이 시작된 계기가 된 역사적 사건은 무엇인가요?", a: "6.25 동란" },
+                    { points: 10, q: "노파의 도리질이 시작된 계기가 된 역사적 사건은 무엇인가요?", a: "6.25 동란 (한국전쟁)" },
                     { points: 10, q: "이 소설의 시점은 무엇인가요?", a: "1인칭 주인공 시점" },
+                    { points: 10, q: "여인숙 아주머니의 남편은 6.25 전쟁 당시 어떤 직업을 가지고 있었나요?", a: "면장" },
+                    { points: 10, q: "주인공이 여행을 떠나게 된 직접적인 계기가 된 감정은 무엇인가요?", a: "헛살았다는 느낌" },
                     { points: 20, q: "이 소설은 여행을 통해 깨달음을 얻는 '이것' 구조의 작품입니다. '이것'은 무엇일까요?", a: "여로 구조" },
                     { points: 20, q: "여인숙 아주머니가 며느리로서 시어머니를 돌보는 것을 무엇이라고 표현했나요?", a: "대사업" },
-                    { points: 20, q: "이 작품은 (          )가 (          )로 바뀌는 과정을 반복한다. 빈칸은?", a: "오해, 이해" },
-                    { points: 20, q: "여인숙 아주머니의 남편은 6.25 전쟁 당시 어떤 직업을 가지고 있었나요?", a: "면장" },
-                    { points: 20, q: "주인공이 여행을 떠나게 된 직접적인 계기가 된 감정은 무엇인가요?", a: "헛살았다는 느낌" },
+                    { points: 20, q: "이 작품은 (          )가 (          )로 바뀌는 과정을 반복한다. 빈칸에 들어갈 말은?", a: "오해, 이해" },
+                    { points: 20, q: "소설의 구성 단계 중, 주인공이 여인숙에서 노파와 아주머니를 만나는 부분은 어디에 해당하나요?", a: "위기" },
+                    { points: 20, q: "아주머니가 아들의 안위를 확인하기 위해 만든 '미신'의 내용은 무엇인가요?", a: "손님이 낸 돈으로 서울 갈 노자를 마련하면 아들이 무사할 것이라는 미신" },
+                    { points: 20, q: "주인공 '나'가 여인숙 아주머니와 노파의 손 위에 자신의 손을 포갠 행위에 담긴 의미는 무엇인가요?", a: "전쟁의 상처에 대한 깊은 공감과 연대감 표현" },
                     { points: 30, q: "노파가 '몰라요'라고 말하며 도리질을 하게 된 최초의 이유는 무엇인지 서술하시오.", a: "며느리가 남편(자신의 아들)의 피신처를 실토하지 않도록 '모른다'고 말하라고 끈질기게 가르쳤기 때문에" },
-                    { points: 30, q: "여인숙 아주머니의 남편은 어떻게 죽게 되었는지 서술하시오.", a: "뒷간 모퉁이에서 패잔병(인민군)과 마주친 시어머니가 반사적으로 '몰라요'를 외치자, 놀라 뛰어나온 남편이 패잔병의 총을 맞아 죽었다." },
+                    { points: 30, q: "여인숙 아주머니의 남편은 어떻게 죽게 되었는지 서술하시오.", a: "뒷간 모퉁이에서 패잔병(인민군)과 마주친 시어머니가 반사적으로 '몰라요'를 외치자, 놀라 뛰어나온 남편이 총을 맞아 죽었다." },
                     { points: 30, q: "이 소설에서 '겨울'이라는 계절이 상징하는 바는 무엇인지 서술하시오.", a: "전쟁의 상처와 시련, 인물들이 겪는 혹독하고 힘겨운 삶을 상징한다." },
                     { points: 30, q: "'대사업'은 시어머니와 며느리에게 각각 무엇을 의미하는지 서술하시오.", a: "시어머니에게는 아들을 지키기 위해 시작된 도리질을 평생 하는 것, 며느리에게는 그런 시어머니를 정성껏 봉양하는 것을 의미한다." },
-                    { points: 30, q: "주인공 '나'가 여행을 통해 '헛살지 않았다'는 깨달음을 얻는 과정을 서술하시오.", a: "자신의 삶에 허무함을 느끼고 떠난 여행에서, 노파와 며느리의 비극적인 삶을 통해 타인의 고통을 이해하고 공감하면서 자신의 삶 또한 가치 있었음을 긍정하게 됨" }
+                    { points: 30, q: "주인공 '나'가 여행을 통해 '헛살지 않았다'는 깨달음을 얻는 과정을 서술하시오.", a: "자신의 삶에 허무함을 느끼고 떠난 여행에서, 노파와 며느리의 비극적인 삶을 통해 타인의 고통을 이해하고 공감하면서 자신의 삶 또한 가치 있었음을 긍정하게 됨" },
+                    { points: 30, q: "노파의 '도리질'이 상징하는 바를 두 가지 이상 서술하시오.", a: "전쟁의 비극적 기억, 아들을 지키지 못한 한과 죄책감, 가혹한 현실에 대한 거부" },
+                    { points: 30, q: "이 소설의 주제를 '상처와 치유'의 관점에서 서술하시오.", a: "전쟁의 비극이 남긴 개인의 상처와, 그 상처를 서로 보듬고 공감하며 치유해 나가는 과정의 소중함" }
                 ]
             },
             {
@@ -311,15 +279,15 @@
                 title: '만세전 (萬歲前)',
                 author: '염상섭 (현대 사실주의 소설)',
                 category: 'crossword',
-                categoryLabel: '현대 소설 · 가로세로 퍼즐',
+                categoryLabel: '현대 소설 · 가로세로',
                 mode: 'crossword',
-                modeLabel: '가로세로 낱말 퀴즈 & 편집기',
+                modeLabel: '가로세로 낱말 퀴즈',
                 color: 'from-amber-500 to-orange-600',
                 badgeBg: 'bg-amber-100 text-amber-800 border-amber-200',
                 icon: '🧩',
                 qCount: 20,
                 desc: '3·1 운동 직전, 일본 동경에서 아내의 위독 전보를 받고 귀국하는 지식인 이인화의 여정을 통해 일제강점기 식민지 조선의 암울한 현실(구더기가 끓는 무덤)을 사실적으로 묘사한 작품입니다.',
-                tags: ['가로세로 퍼즐', '이인화', '구더기가 끓는 무덤', '사실주의', '동경-시모노세키-부산'],
+                tags: ['가로세로 퍼즐', '이인화', '구더기가 끓는 무덤', '사실주의', '여로형 소설'],
                 summary: [
                     '갈래: 현대 소설, 중편 소설, 사실주의 소설, 여로형 소설',
                     '시점: 1인칭 주인공 시점',
@@ -379,13 +347,15 @@
                     { points: 10, q: "양반들이 임시로 머물기 위해 말뚝이에게 정하라고 한 숙소는 무엇이라고 부르나요?", a: "새처" },
                     { points: 10, q: "양반 삼형제 중 막내의 이름은 무엇인가요?", a: "도령" },
                     { points: 10, q: "샌님과 서방님의 얼굴에 있는 공통적인 신체적 특징은 무엇인가요?", a: "언청이" },
+                    { points: 10, q: "말뚝이가 머리에 쓰고 있는 모자는 무엇인가요?", a: "벙거지" },
                     { points: 20, q: "말뚝이가 양반을 조롱하며 웃음을 유발하기 위해 하는 재치있는 대사를 무엇이라고 하나요?", a: "재담" },
                     { points: 20, q: "양반들이 추는 춤은 주로 어떤 장단에 맞춰 추나요?", a: "굿거리장단" },
                     { points: 20, q: "말뚝이가 양반들을 조롱하기 위해 격식 없는 음악을 연주해달라며 악공들에게 언급한 악기는 무엇인가요?", a: "홀뚜기, 바가지장단" },
                     { points: 20, q: "이 작품의 주된 갈등은 누구와 누구 사이에서 일어나나요?", a: "말뚝이와 양반" },
                     { points: 20, q: "양반들이 쓴 시조에 이어 말뚝이가 부른 노래 가사의 첫 부분에 등장하는 지명은 어디인가요?", a: "낙양성" },
+                    { points: 20, q: "말뚝이가 '양반'이라는 단어를 조롱하며 빗댄 사물 두 가지는 무엇인가요?", a: "개잘량('양'), 개다리소반('반')" },
                     { points: 30, q: "말뚝이가 양반들을 소개할 때 온갖 벼슬을 다 지냈다고 과장하는 이유는 무엇인지 서술하시오.", a: "진짜 훌륭한 양반과는 다르게 이름만 양반인 무능하고 권위만 내세우는 양반을 조롱하고 풍자하기 위함이다." },
-                    { points: 30, q: "양반들이 말뚝이의 무례한 언행에도 그를 크게 벌하지 못하는 이유는 무엇인지 서술하시오.", a: "양반들이 무능하고 어리석어서 말뚝이의 조롱 의도를 제대로 파악하지 못하기 때문입니다." },
+                    { points: 30, q: "양반들이 말뚝이의 무례한 언행에도 그를 크게 벌하지 못하는 이유는 무엇인지 서술하시오.", answer: "양반들이 무능하고 어리석어서 말뚝이의 조롱 의도를 제대로 파악하지 못하기 때문입니다.", a: "양반들이 무능하고 어리석어서 말뚝이의 조롱 의도를 제대로 파악하지 못하기 때문입니다." },
                     { points: 30, q: "말뚝이가 양반들을 위해 잡아 놓았다고 말한 '새처'는 어떤 곳인지 서술하시오.", a: "돼지우리가 있는 마구간을 좋은 집인 것처럼 과장하여 표현한 것으로, 양반을 조롱하기 위한 공간입니다." },
                     { points: 30, q: "샌님과 서방님이 한 파자 놀이에서 '논두렁에 살피 짚고 섰는 자'의 정답은 무엇이었나요?", a: "논 임자" },
                     { points: 30, q: "이 작품에서 '춤'이 가지는 역할은 무엇인지 서술하시오.", a: "인물의 성격을 드러내고(양반의 점잖은 춤, 말뚝이의 활기찬 춤), 갈등을 일시적으로 해소하거나 전환하는 역할을 합니다." },
@@ -397,7 +367,7 @@
                 title: '파수꾼',
                 author: '이강백 (현대 희곡)',
                 category: 'play',
-                categoryLabel: '극문학 · 현대 희곡 (단막극)',
+                categoryLabel: '극문학 · 현대 희곡',
                 mode: 'team',
                 modeLabel: '팀 대결 퀴즈 쇼',
                 color: 'from-emerald-600 to-teal-700',
@@ -421,17 +391,22 @@
                     { points: 10, q: "마을의 질서를 유지하기 위해 거짓말을 하는 중심 인물은 누구인가요?", a: "촌장" },
                     { points: 10, q: "진실을 알게 된 '파수꾼 다'가 촌장에게 보낸 것은 무엇인가요?", a: "편지" },
                     { points: 10, q: "진실을 은폐하고 마을을 감시하는 역할을 하는 이 작품의 중심 소재는 무엇인가요?", a: "망루" },
+                    { points: 10, q: "촌장이 거짓말의 진실을 사람들에게 퍼뜨렸다고 지목한 인물은 누구인가요?", a: "운반인" },
                     { points: 20, q: "촌장이 '이리 떼를 주의하라'는 팻말 밑에 가득하다고 말한 것은 무엇인가요?", a: "딸기" },
                     { points: 20, q: "촌장의 회유에 넘어가, 결국 '파수꾼 다'가 망루 위에서 외친 말은 무엇인가요?", a: "이리 떼다!" },
-                    { points: 20, q: "촌장이 거짓말의 진실을 사람들에게 퍼뜨렸다고 지목한 인물은 누구인가요?", a: "운반인" },
-                    { points: 20, q: "이 작품이 풍자하고 있는 1970년대의 정치 상황을 한 단어로 표현한다면 무엇일까요?", a: "독재 / 권위주의 정권" },
-                    { points: 20, q: "촌장이 언급한 '딸기'가 상징하는 것은 무엇인가요?", a: "진실을 알고 있는 권력자가 독점하는 부당한 이익이나 특권" },
+                    { points: 20, q: "촌장이 언급한 '딸기'가 상징하는 것은 무엇인가요?", a: "진실을 독점한 권력자가 누리는 부당한 이익이나 특권" },
+                    { points: 20, q: "이 작품이 풍자하고 있는 1970년대의 정치 상황을 한 단어로 표현한다면 무엇일까요?", a: "독재 / 권위주의 정권 (유신 체제)" },
+                    { points: 20, q: "'파수꾼 다'와 달리, 촌장의 말을 의심 없이 믿고 따르는 파수꾼은 누구인가요?", a: "파수꾼 나" },
+                    { points: 20, q: "이 작품과 같이, 실제 이야기를 다른 대상에 빗대어 교훈을 주는 극의 종류를 무엇이라고 하나요?", a: "우화적 희곡 (우화극)" },
+                    { points: 20, q: "촌장은 진실이 밝혀진 후 마을 사람들이 망루를 부수기 위해 무엇을 들고 올 것이라고 말했나요?", a: "도끼와 망치" },
                     { points: 30, q: "촌장이 '이리 떼'라는 거짓위협을 만들어낸 것에 대한 변명은 무엇인지 서술하시오.", a: "마을의 질서를 유지하고 사람들을 단결시켜 효율적으로 통치하기 위해서입니다." },
                     { points: 30, q: "'파수꾼 다'가 결국 진실을 외치지 못하고 거짓말에 동참하게 된 이유는 무엇인지 서술하시오.", a: "촌장의 논리적인 듯한 궤변과 감정적인 호소에 넘어가, 진실을 밝혔을 때 일어날 혼란과 폭력에 대한 두려움 때문입니다." },
                     { points: 30, q: "이 작품에서 '이리 떼'와 '흰 구름'이 각각 상징하는 바는 무엇인지 서술하시오.", a: "이리 떼: 독재 정권이 국민을 통제하기 위해 내세운 허구의 위협(안보 논리) / 흰 구름: 평화롭고 아름다운 진실" },
                     { points: 30, q: "촌장이 마지막에 '파수꾼 다'에게 '마을엔 오지 말아라'라고 말한 이유는 무엇인지 서술하시오.", a: "진실을 아는 '다'가 마을에 있으면 자신의 거짓말이 드러날 위험이 있기 때문에, 진실을 아는 자를 격리시키려는 의도입니다." },
+                    { points: 30, q: "이 작품이 '양치기 소년' 이야기를 차용하여 얻는 효과는 무엇인지 서술하시오.", a: "익숙한 우화를 통해 관객들이 진실과 거짓이라는 주제에 쉽게 다가가고, 당대 정치 현실을 우회적이고 날카롭게 풍자하는 효과가 있습니다." },
                     { points: 30, q: "'질서 유지를 위해 거짓이 필요하다'는 촌장의 주장이 가진 문제점은 무엇인지 서술하시오.", a: "개인의 자유와 알 권리를 억압하고, 소수의 권력자가 다수를 통제하는 비민주적인 방식이라는 문제점이 있다." },
-                    { points: 30, q: "이 작품은 무대와 객석의 구분이 없는 '이것'을 특징으로 하는데, '이것'은 무엇인가요?", a: "열린 구조 / 열린 무대" }
+                    { points: 30, q: "이 작품은 무대와 객석의 구분이 없는 '이것'을 특징으로 하는데, '이것'은 무엇인가요?", a: "열린 구조 / 열린 무대" },
+                    { points: 30, q: "이 작품의 결말에서 '파수꾼 다'가 결국 스스로 양철 북을 치게 된 의미는 무엇인가요?", a: "진실을 알고 있던 순수한 개인이 권력의 구조적 폭력과 거짓 체제에 굴복하고 편입되었음을 비극적으로 보여준다." }
                 ]
             },
             {
@@ -441,7 +416,7 @@
                 category: 'poem',
                 categoryLabel: '현대시 · 서정시',
                 mode: 'quiz',
-                modeLabel: '핵심 객관식 퀴즈 (13문항)',
+                modeLabel: '핵심 객관식 퀴즈',
                 color: 'from-orange-500 to-red-600',
                 badgeBg: 'bg-orange-100 text-orange-800 border-orange-200',
                 icon: '🔥',
@@ -473,12 +448,33 @@
             }
         ];
 
-        // State Management
         let currentFilter = 'all';
         let searchQuery = '';
         let activeWork = null;
         let activeSubTab = 'play';
         let printVersionType = 'teacher';
+
+        const teamColorsList = [
+            { bg: 'bg-blue-600', text: 'text-blue-600', border: 'border-blue-500', name: '1팀 (청룡)' },
+            { bg: 'bg-rose-600', text: 'text-rose-600', border: 'border-rose-500', name: '2팀 (백호)' },
+            { bg: 'bg-emerald-600', text: 'text-emerald-600', border: 'border-emerald-500', name: '3팀 (주작)' },
+            { bg: 'bg-purple-600', text: 'text-purple-600', border: 'border-purple-500', name: '4팀 (현무)' },
+            { bg: 'bg-amber-600', text: 'text-amber-600', border: 'border-amber-500', name: '5팀 (황룡)' }
+        ];
+
+        let workTeamConfigs = {};
+
+        function getTeamsForWork(workId) {
+            if (!workTeamConfigs[workId]) {
+                workTeamConfigs[workId] = [
+                    { name: '1팀 (청룡)', score: 0, players: [] },
+                    { name: '2팀 (백호)', score: 0, players: [] },
+                    { name: '3팀 (주작)', score: 0, players: [] },
+                    { name: '4팀 (현무)', score: 0, players: [] }
+                ];
+            }
+            return workTeamConfigs[workId];
+        }
 
         // DOM elements
         const quizGrid = document.getElementById('quiz-grid');
@@ -496,6 +492,7 @@
         const modalBadge = document.getElementById('modal-badge');
         const modalSubtitle = document.getElementById('modal-subtitle');
         const modalViewContainer = document.getElementById('modal-view-container');
+        const tabBtnSetup = document.getElementById('tab-btn-setup');
         const tabBtnPlay = document.getElementById('tab-btn-play');
         const tabBtnQuestions = document.getElementById('tab-btn-questions');
         const tabBtnSummary = document.getElementById('tab-btn-summary');
@@ -507,9 +504,7 @@
         const openGuideBtn = document.getElementById('open-guide-btn');
         const closeGuideBtn = document.getElementById('close-guide-btn');
         const closeGuideBtnBottom = document.getElementById('close-guide-btn-bottom');
-        const viewCurriculumBtn = document.getElementById('view-curriculum-btn');
 
-        // Render Catalog Grid
         function renderCards() {
             quizGrid.innerHTML = '';
             
@@ -531,15 +526,15 @@
                 return matchCategory && matchSearch;
             });
 
-            cardCounter.textContent = `${filtered.length}개 작품 표시 중`;
+            cardCounter.textContent = `${filtered.length}개 제재 표시 중`;
 
             if (filtered.length === 0) {
                 quizGrid.innerHTML = `
                     <div class="col-span-full py-16 text-center bg-white rounded-3xl border border-dashed border-slate-300">
                         <span class="text-4xl">🔍</span>
-                        <h4 class="mt-3 text-lg font-bold text-slate-700">검색 조건과 일치하는 작품이 없습니다</h4>
+                        <h4 class="mt-3 text-base font-bold text-slate-700">검색 조건과 일치하는 제재가 없습니다.</h4>
                         <p class="text-xs text-slate-400 mt-1">검색어를 수정하거나 필터를 초기화해 보세요.</p>
-                        <button onclick="resetFilters()" class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold hover:bg-indigo-700">전체 목록 보기</button>
+                        <button onclick="resetFilters()" class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold hover:bg-indigo-700">전체 보기</button>
                     </div>
                 `;
                 return;
@@ -551,7 +546,7 @@
                 card.innerHTML = `
                     <div>
                         <div class="h-3 bg-gradient-to-r ${item.color}"></div>
-                        <div class="p-6">
+                        <div class="p-5 sm:p-6">
                             <div class="flex justify-between items-start gap-2 mb-3">
                                 <span class="px-2.5 py-1 rounded-full text-xs font-bold border ${item.badgeBg}">
                                     ${item.categoryLabel}
@@ -563,7 +558,7 @@
 
                             <div class="flex items-center gap-2 mb-1">
                                 <span class="text-2xl">${item.icon}</span>
-                                <h3 class="text-xl font-black text-slate-900 tracking-tight">${item.title}</h3>
+                                <h3 class="text-lg sm:text-xl font-black text-slate-900 tracking-tight">${item.title}</h3>
                             </div>
                             <p class="text-xs font-semibold text-slate-500 mb-3">${item.author}</p>
                             <p class="text-xs text-slate-600 line-clamp-3 leading-relaxed mb-4">${item.desc}</p>
@@ -574,9 +569,12 @@
                         </div>
                     </div>
 
-                    <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center gap-2">
-                        <button onclick="openPlayer('${item.id}', 'play')" class="flex-1 py-2.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-sm transition flex items-center justify-center gap-1.5">
+                    <div class="px-5 py-4 bg-slate-50 border-t border-slate-100 flex items-center gap-2">
+                        <button onclick="openPlayer('${item.id}', 'play')" class="flex-1 py-2.5 px-3 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-sm transition flex items-center justify-center gap-1">
                             <span>🚀</span> <span>플레이하기</span>
+                        </button>
+                        <button onclick="openPlayer('${item.id}', 'setup')" class="py-2.5 px-3 bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 text-xs font-bold rounded-xl transition flex items-center justify-center gap-1" title="팀 수 및 팀원 설정">
+                            <span>⚙️</span> <span>설정하기</span>
                         </button>
                         <button onclick="openPlayer('${item.id}', 'questions')" class="py-2.5 px-3 bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-bold rounded-xl transition" title="문항 및 해설 확인">
                             문항집
@@ -595,8 +593,11 @@
                 b.classList.remove('bg-indigo-600', 'text-white');
                 b.classList.add('bg-white', 'text-slate-600');
             });
-            document.querySelector('[data-category="all"]').classList.add('bg-indigo-600', 'text-white');
-            document.querySelector('[data-category="all"]').classList.remove('bg-white', 'text-slate-600');
+            const allTab = document.querySelector('[data-category="all"]');
+            if (allTab) {
+                allTab.classList.add('bg-indigo-600', 'text-white');
+                allTab.classList.remove('bg-white', 'text-slate-600');
+            }
             renderCards();
         }
 
@@ -609,7 +610,6 @@
             });
             btn.classList.add('bg-indigo-600', 'text-white');
             btn.classList.remove('bg-white', 'text-slate-600');
-
             currentFilter = btn.dataset.category;
             renderCards();
         });
@@ -621,7 +621,6 @@
 
         resetFilterBtn.addEventListener('click', resetFilters);
 
-        // Open Modal Controller
         window.openPlayer = function(id, subTab = 'play') {
             activeWork = literatureData.find(w => w.id === id);
             if (!activeWork) return;
@@ -646,43 +645,48 @@
             setTimeout(() => {
                 playerModal.classList.add('hidden');
                 modalViewContainer.innerHTML = '';
-            }, 200);
+            }, 150);
         }
 
         function updateSubTabStyles() {
-            [tabBtnPlay, tabBtnQuestions, tabBtnSummary].forEach(btn => {
-                btn.className = 'py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-bold';
+            [tabBtnSetup, tabBtnPlay, tabBtnQuestions, tabBtnSummary].forEach(btn => {
+                if (btn) btn.className = 'py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-bold whitespace-nowrap';
             });
-            if (activeSubTab === 'play') {
-                tabBtnPlay.className = 'py-3 border-b-2 border-indigo-600 text-indigo-700 font-bold';
-            } else if (activeSubTab === 'questions') {
-                tabBtnQuestions.className = 'py-3 border-b-2 border-indigo-600 text-indigo-700 font-bold';
-            } else if (activeSubTab === 'summary') {
-                tabBtnSummary.className = 'py-3 border-b-2 border-indigo-600 text-indigo-700 font-bold';
+            if (activeSubTab === 'setup' && tabBtnSetup) {
+                tabBtnSetup.className = 'py-3 border-b-2 border-indigo-600 text-indigo-700 font-bold whitespace-nowrap';
+            } else if (activeSubTab === 'play' && tabBtnPlay) {
+                tabBtnPlay.className = 'py-3 border-b-2 border-indigo-600 text-indigo-700 font-bold whitespace-nowrap';
+            } else if (activeSubTab === 'questions' && tabBtnQuestions) {
+                tabBtnQuestions.className = 'py-3 border-b-2 border-indigo-600 text-indigo-700 font-bold whitespace-nowrap';
+            } else if (activeSubTab === 'summary' && tabBtnSummary) {
+                tabBtnSummary.className = 'py-3 border-b-2 border-indigo-600 text-indigo-700 font-bold whitespace-nowrap';
             }
         }
 
+        tabBtnSetup.addEventListener('click', () => { activeSubTab = 'setup'; updateSubTabStyles(); renderModalBody(); });
         tabBtnPlay.addEventListener('click', () => { activeSubTab = 'play'; updateSubTabStyles(); renderModalBody(); });
         tabBtnQuestions.addEventListener('click', () => { activeSubTab = 'questions'; updateSubTabStyles(); renderModalBody(); });
         tabBtnSummary.addEventListener('click', () => { activeSubTab = 'summary'; updateSubTabStyles(); renderModalBody(); });
-
         closeModalBtn.addEventListener('click', closePlayer);
 
-        // Render Active Modal Content
         function renderModalBody() {
             if (!activeWork) return;
             modalViewContainer.innerHTML = '';
 
+            if (activeSubTab === 'setup') {
+                renderSetupTab();
+                return;
+            }
             if (activeSubTab === 'questions') {
                 renderQuestionsTab();
                 return;
             }
-
             if (activeSubTab === 'summary') {
                 renderSummaryTab();
                 return;
             }
 
+            // Interactive Play Modes
             if (activeWork.mode === 'crossword') {
                 renderCrosswordPlayer();
             } else if (activeWork.mode === 'quiz') {
@@ -692,25 +696,456 @@
             }
         }
 
+        function renderSetupTab() {
+            const container = document.createElement('div');
+            container.className = 'max-w-4xl mx-auto space-y-6';
+
+            const currentTeams = getTeamsForWork(activeWork.id);
+            const teamCount = currentTeams.length;
+
+            container.innerHTML = `
+                <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-5">
+                    <div class="border-b pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div>
+                            <h4 class="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
+                                <span>⚙️ [${activeWork.title}] 팀 및 참가 인원 설정</span>
+                            </h4>
+                            <p class="text-xs text-slate-500 mt-1">참가 팀 수(2~5팀)와 팀원 이름을 등록하면 퀴즈 대결 시 개인별 점수가 자동 집계됩니다.</p>
+                        </div>
+                        <div class="flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 shrink-0">
+                            <label for="setup-team-count-select" class="text-xs font-bold text-slate-700">참가 팀 수:</label>
+                            <select id="setup-team-count-select" class="bg-white border border-slate-300 text-xs font-black rounded-lg p-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                <option value="2" ${teamCount === 2 ? 'selected' : ''}>2팀 대결</option>
+                                <option value="3" ${teamCount === 3 ? 'selected' : ''}>3팀 대결</option>
+                                <option value="4" ${teamCount === 4 ? 'selected' : ''}>4팀 대결</option>
+                                <option value="5" ${teamCount === 5 ? 'selected' : ''}>5팀 대결</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="setup-teams-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-slate-100">
+                        <button id="setup-reset-btn" class="w-full sm:w-auto px-4 py-2.5 text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-xl transition">
+                            기본 4팀 설정으로 초기화
+                        </button>
+                        <button id="setup-save-and-play-btn" class="w-full sm:w-auto px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black rounded-xl shadow transition flex items-center justify-center gap-1.5">
+                            <span>🚀</span> <span>설정 완료 후 퀴즈 플레이 시작</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            modalViewContainer.appendChild(container);
+
+            const teamsWrapper = container.querySelector('#setup-teams-container');
+            const countSelect = container.querySelector('#setup-team-count-select');
+            const resetBtn = container.querySelector('#setup-reset-btn');
+            const savePlayBtn = container.querySelector('#setup-save-and-play-btn');
+
+            function renderTeamEditorCards() {
+                teamsWrapper.innerHTML = '';
+                const teams = getTeamsForWork(activeWork.id);
+
+                teams.forEach((team, tIdx) => {
+                    const colorToken = teamColorsList[tIdx] || teamColorsList[0];
+                    const card = document.createElement('div');
+                    card.className = `p-4 rounded-xl border-2 ${colorToken.border} bg-white shadow-xs space-y-3`;
+                    card.innerHTML = `
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full ${colorToken.bg} shrink-0"></span>
+                            <input type="text" class="team-name-input flex-1 p-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500" value="${team.name}" placeholder="팀 이름">
+                        </div>
+                        <div class="space-y-1.5">
+                            <span class="text-[11px] font-bold text-slate-500">참가 학생 명단:</span>
+                            <div class="player-tag-container min-h-[42px] p-2 bg-slate-50 border border-slate-200 rounded-lg flex flex-wrap gap-1.5 items-center">
+                                ${team.players.map((p, pIdx) => `
+                                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-bold bg-white text-slate-700 border border-slate-300 shadow-2xs">
+                                        ${p.name}
+                                        <button type="button" onclick="removeParticipant(${tIdx}, ${pIdx})" class="text-rose-500 hover:text-rose-700 font-black ml-1">&times;</button>
+                                    </span>
+                                `).join('')}
+                                ${team.players.length === 0 ? '<span class="text-[11px] text-slate-400">등록된 팀원이 없습니다. 아래에서 학생 이름을 추가하세요.</span>' : ''}
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <input type="text" class="new-player-input flex-1 p-2 bg-white border border-slate-300 rounded-lg text-xs placeholder-slate-400 focus:ring-2 focus:ring-indigo-500" placeholder="학생 이름 입력 후 추가">
+                            <button type="button" class="add-player-btn px-3 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-bold transition shrink-0">
+                                추가
+                            </button>
+                        </div>
+                    `;
+
+                    const addBtn = card.querySelector('.add-player-btn');
+                    const nameInput = card.querySelector('.new-player-input');
+                    const teamNameInput = card.querySelector('.team-name-input');
+
+                    teamNameInput.addEventListener('input', (e) => {
+                        team.name = e.target.value.trim() || `팀 ${tIdx + 1}`;
+                    });
+
+                    const handleAdd = () => {
+                        const val = nameInput.value.trim();
+                        if (val) {
+                            team.players.push({ name: val, score: 0 });
+                            nameInput.value = '';
+                            renderTeamEditorCards();
+                        }
+                    };
+
+                    addBtn.onclick = handleAdd;
+                    nameInput.onkeydown = (e) => {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            handleAdd();
+                        }
+                    };
+
+                    teamsWrapper.appendChild(card);
+                });
+            }
+
+            window.removeParticipant = function(teamIdx, playerIdx) {
+                const teams = getTeamsForWork(activeWork.id);
+                if (teams[teamIdx] && teams[teamIdx].players) {
+                    teams[teamIdx].players.splice(playerIdx, 1);
+                    renderTeamEditorCards();
+                }
+            };
+
+            countSelect.addEventListener('change', (e) => {
+                const newCount = parseInt(e.target.value);
+                const teams = getTeamsForWork(activeWork.id);
+                while (teams.length < newCount) {
+                    const idx = teams.length;
+                    const def = teamColorsList[idx] || { name: `${idx + 1}팀` };
+                    teams.push({ name: def.name, score: 0, players: [] });
+                }
+                while (teams.length > newCount) {
+                    teams.pop();
+                }
+                renderTeamEditorCards();
+            });
+
+            resetBtn.onclick = () => {
+                workTeamConfigs[activeWork.id] = [
+                    { name: '1팀 (청룡)', score: 0, players: [] },
+                    { name: '2팀 (백호)', score: 0, players: [] },
+                    { name: '3팀 (주작)', score: 0, players: [] },
+                    { name: '4팀 (현무)', score: 0, players: [] }
+                ];
+                countSelect.value = "4";
+                renderTeamEditorCards();
+            };
+
+            savePlayBtn.onclick = () => {
+                activeSubTab = 'play';
+                updateSubTabStyles();
+                renderModalBody();
+            };
+
+            renderTeamEditorCards();
+        }
+
+        function renderTeamQuizPlayer() {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'max-w-4xl mx-auto space-y-6';
+
+            const teams = getTeamsForWork(activeWork.id);
+            teams.forEach(t => {
+                t.score = 0;
+                t.players.forEach(p => p.score = 0);
+            });
+
+            const colClass = teams.length === 2 ? 'grid-cols-2' 
+                           : teams.length === 3 ? 'grid-cols-3'
+                           : teams.length === 5 ? 'grid-cols-2 sm:grid-cols-5'
+                           : 'grid-cols-2 sm:grid-cols-4';
+
+            wrapper.innerHTML = `
+                <div class="flex items-center justify-between bg-white p-3.5 rounded-xl border border-slate-200">
+                    <div class="flex items-center gap-2">
+                        <span class="text-base">👥</span>
+                        <span class="text-xs font-bold text-slate-700">현재 <strong class="text-indigo-600">${teams.length}개 팀</strong> 대결 모드로 진행됩니다.</span>
+                    </div>
+                    <button id="play-reconfig-btn" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-lg transition flex items-center gap-1 border border-slate-200">
+                        <span>⚙️</span> <span>팀/팀원 재설정</span>
+                    </button>
+                </div>
+
+                <div class="grid ${colClass} gap-3" id="live-team-scoreboard">
+                    ${teams.map((t, idx) => {
+                        const col = teamColorsList[idx] || teamColorsList[0];
+                        return `
+                            <div class="p-3.5 ${col.bg} text-white rounded-xl text-center shadow-xs space-y-0.5">
+                                <span class="text-xs font-semibold opacity-90 truncate block">${t.name}</span>
+                                <p id="t-score-${idx}" class="text-2xl sm:text-3xl font-black">0점</p>
+                                <span class="text-[11px] opacity-80 block truncate">${t.players.length > 0 ? `${t.players.length}명 등록` : '팀 전체'}</span>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+
+                <div class="flex items-center justify-between bg-white p-4 rounded-xl border border-slate-200">
+                    <div class="flex items-center gap-2">
+                        <span class="text-lg">🎯</span>
+                        <span class="text-xs font-bold text-slate-700">문제를 클릭하면 대형 문제창이 열리며, 정답 확인 후 점수를 부여할 수 있습니다.</span>
+                    </div>
+                    <button id="finish-game-early-btn" class="text-xs px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-lg transition">
+                        결과 발표
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-3 sm:grid-cols-5 gap-3" id="team-quiz-board">
+                    ${activeWork.questions.map((q, idx) => `
+                        <button onclick="openBoardQuestion(${idx})" id="q-tile-${idx}" class="p-4 bg-white hover:bg-indigo-50 border-2 border-slate-200 hover:border-indigo-400 rounded-xl flex flex-col items-center justify-center gap-1 transition shadow-xs">
+                            <span class="text-[11px] font-semibold text-slate-400">문제 ${idx + 1}</span>
+                            <span class="text-2xl font-black text-slate-800">${q.points}점</span>
+                        </button>
+                    `).join('')}
+                </div>
+
+                <!-- Live Active Question Modal Box -->
+                <div id="live-question-panel" class="hidden bg-white p-6 rounded-2xl border-2 border-indigo-500 shadow-xl space-y-4">
+                    <div class="flex items-center justify-between border-b pb-2">
+                        <span id="lq-points-badge" class="px-3 py-1 bg-indigo-100 text-indigo-800 text-xs font-black rounded-lg">10점 문항</span>
+                        <span id="lq-number" class="text-xs text-slate-400 font-bold">문제 1</span>
+                    </div>
+                    <h4 id="lq-text" class="text-xl sm:text-2xl font-black text-slate-900 leading-snug"></h4>
+                    
+                    <div id="lq-answer-box" class="hidden p-5 bg-emerald-50 rounded-xl border-l-4 border-emerald-500 text-emerald-950 space-y-1">
+                        <p class="text-xs font-bold text-emerald-700">모범 정답:</p>
+                        <p id="lq-answer-text" class="text-2xl sm:text-4xl font-black text-emerald-600 leading-tight"></p>
+                    </div>
+
+                    <div class="pt-3 border-t space-y-3">
+                        <div class="flex items-center justify-between">
+                            <button id="lq-show-ans-btn" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl transition">
+                                정답 확인하기
+                            </button>
+                            <button id="lq-no-points-btn" class="hidden px-4 py-2 bg-slate-400 hover:bg-slate-500 text-white text-xs font-bold rounded-lg transition">
+                                점수 없음 (오답)
+                            </button>
+                        </div>
+
+                        <div id="lq-team-award-buttons" class="hidden space-y-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <p class="text-xs font-black text-slate-700">정답을 맞힌 팀 또는 개인을 선택하세요 (점수 자동 반영):</p>
+                            <div class="space-y-3" id="award-teams-list"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Final Results Banner -->
+                <div id="quiz-results-banner" class="hidden bg-white p-6 sm:p-8 rounded-2xl border-2 border-emerald-500 shadow-2xl space-y-6">
+                    <div class="text-center space-y-1">
+                        <span class="text-4xl">🏆</span>
+                        <h3 class="text-2xl font-black text-slate-900">퀴즈 대결 최종 결과</h3>
+                        <p class="text-xs text-slate-500">모든 문제가 종료되었습니다. 팀 순위와 개인 우수자를 확인하세요!</p>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                            <h4 class="text-sm font-black text-slate-800 border-b pb-2 flex items-center gap-1.5">
+                                <span>🏅</span> <span>팀 최종 순위</span>
+                            </h4>
+                            <div id="results-team-rankings" class="space-y-2"></div>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                            <h4 class="text-sm font-black text-slate-800 border-b pb-2 flex items-center gap-1.5">
+                                <span>🌟</span> <span>개인 우수자 (Top 3)</span>
+                            </h4>
+                            <div id="results-individual-rankings" class="space-y-2"></div>
+                        </div>
+                    </div>
+                    <div class="flex justify-center gap-3 pt-2">
+                        <button id="results-restart-btn" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl transition">
+                            처음부터 다시하기
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            modalViewContainer.appendChild(wrapper);
+
+            let activeQIdx = null;
+            let answeredTiles = 0;
+
+            const livePanel = wrapper.querySelector('#live-question-panel');
+            const lqPointsBadge = wrapper.querySelector('#lq-points-badge');
+            const lqNumber = wrapper.querySelector('#lq-number');
+            const lqText = wrapper.querySelector('#lq-text');
+            const lqAnswerBox = wrapper.querySelector('#lq-answer-box');
+            const lqAnswerText = wrapper.querySelector('#lq-answer-text');
+            const lqShowAnsBtn = wrapper.querySelector('#lq-show-ans-btn');
+            const lqNoPointsBtn = wrapper.querySelector('#lq-no-points-btn');
+            const lqAwardButtons = wrapper.querySelector('#lq-team-award-buttons');
+            const awardTeamsList = wrapper.querySelector('#award-teams-list');
+            const playReconfigBtn = wrapper.querySelector('#play-reconfig-btn');
+            const finishEarlyBtn = wrapper.querySelector('#finish-game-early-btn');
+            const resultsBanner = wrapper.querySelector('#quiz-results-banner');
+            const restartBtn = wrapper.querySelector('#results-restart-btn');
+
+            playReconfigBtn.onclick = () => {
+                activeSubTab = 'setup';
+                updateSubTabStyles();
+                renderModalBody();
+            };
+
+            window.openBoardQuestion = function(idx) {
+                activeQIdx = idx;
+                const q = activeWork.questions[idx];
+                lqNumber.textContent = `문제 ${idx + 1}`;
+                lqPointsBadge.textContent = `${q.points}점 문항`;
+                lqText.textContent = q.q;
+                lqAnswerText.textContent = q.a;
+                lqAnswerBox.classList.add('hidden');
+                lqShowAnsBtn.classList.remove('hidden');
+                lqNoPointsBtn.classList.add('hidden');
+                lqAwardButtons.classList.add('hidden');
+
+                livePanel.classList.remove('hidden');
+                livePanel.scrollIntoView({ behavior: 'smooth' });
+            };
+
+            lqShowAnsBtn.onclick = () => {
+                lqAnswerBox.classList.remove('hidden');
+                lqShowAnsBtn.classList.add('hidden');
+                lqNoPointsBtn.classList.remove('hidden');
+                lqAwardButtons.classList.remove('hidden');
+                renderAwardTeamButtons();
+            };
+
+            function renderAwardTeamButtons() {
+                awardTeamsList.innerHTML = '';
+                const q = activeWork.questions[activeQIdx];
+
+                teams.forEach((t, tIdx) => {
+                    const col = teamColorsList[tIdx] || teamColorsList[0];
+                    const teamRow = document.createElement('div');
+                    teamRow.className = 'p-3 bg-white rounded-lg border border-slate-200 space-y-2';
+                    teamRow.innerHTML = `
+                        <div class="flex items-center justify-between">
+                            <strong class="${col.text} text-xs font-bold">${t.name}</strong>
+                            <button type="button" onclick="awardPointsToTarget(${tIdx}, null)" class="px-2.5 py-1 ${col.bg} hover:opacity-90 text-white rounded-md text-[11px] font-bold">
+                                팀 전체에 +${q.points}점
+                            </button>
+                        </div>
+                        ${t.players.length > 0 ? `
+                            <div class="flex flex-wrap gap-1.5 pt-1">
+                                ${t.players.map((p, pIdx) => `
+                                    <button type="button" onclick="awardPointsToTarget(${tIdx}, ${pIdx})" class="px-2.5 py-1 bg-slate-100 hover:bg-indigo-50 border border-slate-300 text-slate-700 hover:text-indigo-700 rounded text-xs font-semibold transition">
+                                        👤 ${p.name} (+${q.points})
+                                    </button>
+                                `).join('')}
+                            </div>
+                        ` : ''}
+                    `;
+                    awardTeamsList.appendChild(teamRow);
+                });
+            }
+
+            window.awardPointsToTarget = function(teamIdx, playerIdx) {
+                if (activeQIdx === null) return;
+                const points = activeWork.questions[activeQIdx].points;
+                teams[teamIdx].score += points;
+                if (playerIdx !== null && teams[teamIdx].players[playerIdx]) {
+                    teams[teamIdx].players[playerIdx].score += points;
+                }
+                const scoreElem = document.getElementById(`t-score-${teamIdx}`);
+                if (scoreElem) scoreElem.textContent = `${teams[teamIdx].score}점`;
+                closeActiveQuestion(true);
+            };
+
+            lqNoPointsBtn.onclick = () => {
+                closeActiveQuestion(true);
+            };
+
+            function closeActiveQuestion(wasAnswered) {
+                if (activeQIdx !== null) {
+                    const tile = document.getElementById(`q-tile-${activeQIdx}`);
+                    if (tile) {
+                        tile.classList.add('opacity-40', 'bg-slate-200', 'cursor-not-allowed');
+                        tile.disabled = true;
+                    }
+                    if (wasAnswered) answeredTiles++;
+                }
+                livePanel.classList.add('hidden');
+                activeQIdx = null;
+
+                if (answeredTiles >= activeWork.questions.length) {
+                    showFinalResults();
+                }
+            }
+
+            function showFinalResults() {
+                resultsBanner.classList.remove('hidden');
+                resultsBanner.scrollIntoView({ behavior: 'smooth' });
+
+                const teamRankDiv = resultsBanner.querySelector('#results-team-rankings');
+                const indivRankDiv = resultsBanner.querySelector('#results-individual-rankings');
+                teamRankDiv.innerHTML = '';
+                indivRankDiv.innerHTML = '';
+
+                const sortedTeams = [...teams].sort((a, b) => b.score - a.score);
+                sortedTeams.forEach((t, i) => {
+                    const badge = i === 0 ? '🥇 1등' : i === 1 ? '🥈 2등' : i === 2 ? '🥉 3등' : `${i + 1}등`;
+                    const item = document.createElement('div');
+                    item.className = 'flex justify-between items-center p-2 rounded-lg bg-white border border-slate-200 text-xs font-bold';
+                    item.innerHTML = `
+                        <span class="flex items-center gap-1.5"><strong>${badge}</strong> <span>${t.name}</span></span>
+                        <span class="text-indigo-600 font-black">${t.score}점</span>
+                    `;
+                    teamRankDiv.appendChild(item);
+                });
+
+                let allPlayers = [];
+                teams.forEach(t => {
+                    t.players.forEach(p => {
+                        allPlayers.push({ name: p.name, score: p.score, teamName: t.name });
+                    });
+                });
+                const sortedPlayers = allPlayers.filter(p => p.score > 0).sort((a, b) => b.score - a.score).slice(0, 3);
+
+                if (sortedPlayers.length === 0) {
+                    indivRankDiv.innerHTML = '<p class="text-xs text-slate-400 py-3 text-center">개인별로 부여된 득점이 없습니다.</p>';
+                } else {
+                    sortedPlayers.forEach((p, i) => {
+                        const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : '🥉';
+                        const pItem = document.createElement('div');
+                        pItem.className = 'flex justify-between items-center p-2 rounded-lg bg-white border border-slate-200 text-xs font-bold';
+                        pItem.innerHTML = `
+                            <span>${medal} ${p.name} <span class="text-[11px] text-slate-400 font-normal">(${p.teamName})</span></span>
+                            <span class="text-emerald-600 font-black">${p.score}점</span>
+                        `;
+                        indivRankDiv.appendChild(pItem);
+                    });
+                }
+            }
+
+            finishEarlyBtn.onclick = showFinalResults;
+            restartBtn.onclick = () => {
+                renderTeamQuizPlayer();
+            };
+        }
+
         function renderQuestionsTab() {
             const container = document.createElement('div');
             container.className = 'max-w-4xl mx-auto space-y-4';
 
             const header = document.createElement('div');
-            header.className = 'flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-white p-4 rounded-xl border border-slate-200 shadow-sm';
+            header.className = 'flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-white p-4 rounded-xl border border-slate-200 shadow-xs';
             header.innerHTML = `
                 <div>
                     <h4 class="font-bold text-slate-800 flex items-center gap-2">
-                        <span>${activeWork.title} - 문항집 & 학습지</span>
+                        <span>${activeWork.title} - 전체 문항집</span>
                         <span class="text-xs font-bold px-2 py-0.5 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded">총 ${activeWork.qCount}문항</span>
                     </h4>
-                    <p class="text-xs text-slate-500 mt-0.5">상단의 [PDF 저장] 또는 [문제지 인쇄] 버튼으로 A4 시험지 양식을 출력할 수 있습니다.</p>
+                    <p class="text-xs text-slate-500 mt-0.5">상단의 [PDF 저장] 또는 [인쇄] 버튼으로 시험지 양식을 출력할 수 있습니다.</p>
                 </div>
                 <div class="flex items-center gap-2 bg-slate-100 p-1 rounded-xl text-xs font-bold">
-                    <button id="mode-teacher-btn" class="px-3 py-1.5 rounded-lg transition ${printVersionType === 'teacher' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900'}">
+                    <button id="mode-teacher-btn" class="px-3 py-1.5 rounded-lg transition ${printVersionType === 'teacher' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'}">
                         🧑‍🏫 정답 포함 (교사용)
                     </button>
-                    <button id="mode-student-btn" class="px-3 py-1.5 rounded-lg transition ${printVersionType === 'student' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900'}">
+                    <button id="mode-student-btn" class="px-3 py-1.5 rounded-lg transition ${printVersionType === 'student' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'}">
                         📝 정답 가리기 (학생용)
                     </button>
                 </div>
@@ -731,7 +1166,7 @@
             if (activeWork.questions) {
                 activeWork.questions.forEach((q, idx) => {
                     const qCard = document.createElement('div');
-                    qCard.className = 'bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-sm space-y-2.5';
+                    qCard.className = 'bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-xs space-y-2.5';
                     qCard.innerHTML = `
                         <div class="flex items-start justify-between gap-3">
                             <span class="font-black text-indigo-600 text-sm">Q${idx + 1}. [${q.points}점]</span>
@@ -756,7 +1191,7 @@
                 listDiv.className = 'grid grid-cols-1 sm:grid-cols-2 gap-3';
                 activeWork.words.forEach((w, idx) => {
                     const wItem = document.createElement('div');
-                    wItem.className = 'bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm';
+                    wItem.className = 'bg-white p-3.5 rounded-xl border border-slate-200 shadow-xs';
                     wItem.innerHTML = `
                         <div class="flex items-center justify-between text-xs mb-1">
                             <span class="font-bold text-amber-600">${idx + 1}. 낱말 힌트</span>
@@ -774,7 +1209,7 @@
             } else if (activeWork.objectiveQuestions) {
                 activeWork.objectiveQuestions.forEach((q, idx) => {
                     const qCard = document.createElement('div');
-                    qCard.className = 'bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-sm space-y-2.5';
+                    qCard.className = 'bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-xs space-y-2.5';
                     qCard.innerHTML = `
                         <div class="flex items-start justify-between gap-3">
                             <span class="font-black text-orange-600 text-sm">Q${idx + 1}. 객관식 문항</span>
@@ -806,16 +1241,16 @@
             container.className = 'max-w-4xl mx-auto space-y-6';
 
             const box = document.createElement('div');
-            box.className = 'bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4';
+            box.className = 'bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4';
             box.innerHTML = `
                 <div class="border-b pb-3 flex items-center justify-between">
                     <div>
-                        <h4 class="text-xl font-black text-slate-900">${activeWork.title} 핵심 제재 분석</h4>
+                        <h4 class="text-lg sm:text-xl font-black text-slate-900">${activeWork.title} 핵심 제재 분석</h4>
                         <p class="text-xs text-slate-500">${activeWork.author} | 교과서 필수 지도 요소</p>
                     </div>
                     <span class="text-3xl">${activeWork.icon}</span>
                 </div>
-                <ul class="space-y-2.5 text-sm text-slate-700">
+                <ul class="space-y-2.5 text-xs sm:text-sm text-slate-700">
                     ${activeWork.summary.map(s => `
                         <li class="flex items-start gap-2">
                             <span class="text-indigo-500 font-bold">▪</span>
@@ -828,7 +1263,6 @@
             modalViewContainer.appendChild(container);
         }
 
-        // 1. Crossword Player
         function renderCrosswordPlayer() {
             const wrapper = document.createElement('div');
             wrapper.className = 'max-w-4xl mx-auto space-y-6';
@@ -838,16 +1272,16 @@
                         <span class="text-2xl">🧩</span>
                         <div>
                             <h4 class="font-bold text-amber-950 text-sm">만세전 20대 핵심 어휘 가로세로 퍼즐</h4>
-                            <p class="text-xs text-amber-800">힌트를 읽고 알맞은 소설 속 어휘를 확인해 보세요.</p>
+                            <p class="text-xs text-amber-800">힌트를 읽고 알맞은 소설 속 어휘를 맞혀보세요.</p>
                         </div>
                     </div>
                     <button id="toggle-word-answers" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-lg transition">
-                        정답 전체 채우기
+                        정답 전체 확인
                     </button>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm max-h-[50vh] overflow-y-auto space-y-2.5">
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs max-h-[50vh] overflow-y-auto space-y-2.5">
                         <h5 class="font-bold text-slate-800 text-sm border-b pb-2">낱말 힌트 목록</h5>
                         <div id="crossword-clues-list" class="space-y-2">
                             ${activeWork.words.map((w, idx) => `
@@ -855,7 +1289,7 @@
                                     <div>
                                         <strong class="text-amber-700">${idx + 1}.</strong> ${w.clue}
                                     </div>
-                                    <span class="font-bold text-slate-400 crossword-ans-tag hidden px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300">
+                                    <span class="font-bold text-slate-400 crossword-ans-tag hidden px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 shrink-0">
                                         ${w.word}
                                     </span>
                                 </div>
@@ -863,19 +1297,19 @@
                         </div>
                     </div>
 
-                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col items-center justify-center space-y-4">
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-xs flex flex-col items-center justify-center space-y-4">
                         <div class="w-full text-center">
-                            <span class="text-xs font-bold text-slate-500">스마트 단어 카드 뷰어</span>
+                            <span class="text-xs font-bold text-slate-500">어휘 플래시카드</span>
                             <div id="flashcard-box" class="mt-3 p-6 bg-slate-900 text-white rounded-2xl shadow-inner min-h-[160px] flex flex-col items-center justify-center text-center space-y-3">
                                 <span id="fc-number" class="text-xs text-amber-400 font-bold">1 / 20</span>
-                                <p id="fc-clue" class="text-sm font-medium text-slate-200 leading-relaxed">${activeWork.words[0].clue}</p>
+                                <p id="fc-clue" class="text-xs sm:text-sm font-medium text-slate-200 leading-relaxed">${activeWork.words[0].clue}</p>
                                 <button id="fc-reveal-btn" class="px-3 py-1 bg-amber-500 text-slate-950 font-bold text-xs rounded-lg hover:bg-amber-400">정답 확인</button>
                                 <p id="fc-answer" class="text-2xl font-black text-emerald-400 hidden">${activeWork.words[0].word}</p>
                             </div>
                         </div>
                         <div class="flex gap-2">
-                            <button id="fc-prev-btn" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-bold rounded-lg transition">◀ 이전 단어</button>
-                            <button id="fc-next-btn" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg transition">다음 단어 ▶</button>
+                            <button id="fc-prev-btn" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-bold rounded-lg transition">◀ 이전</button>
+                            <button id="fc-next-btn" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg transition">다음 ▶</button>
                         </div>
                     </div>
                 </div>
@@ -919,11 +1353,10 @@
                 wrapper.querySelectorAll('.crossword-ans-tag').forEach(tag => {
                     tag.classList.toggle('hidden', !showingAll);
                 });
-                toggleAnsBtn.textContent = showingAll ? '정답 숨기기' : '정답 전체 채우기';
+                toggleAnsBtn.textContent = showingAll ? '정답 숨기기' : '정답 전체 확인';
             };
         }
 
-        // 2. Objective Quiz Player
         function renderObjectiveQuizPlayer() {
             const wrapper = document.createElement('div');
             wrapper.className = 'max-w-3xl mx-auto space-y-6';
@@ -933,23 +1366,23 @@
             let isSubmitted = false;
 
             wrapper.innerHTML = `
-                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between text-xs font-bold text-slate-600">
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex items-center justify-between text-xs font-bold text-slate-600">
                     <span id="quiz-progress-text">문제 1 / ${activeWork.objectiveQuestions.length}</span>
                     <span id="quiz-score-badge" class="px-3 py-1 rounded-full bg-orange-100 text-orange-800 border border-orange-200">실시간 채점 모드</span>
                 </div>
 
-                <div id="obj-quiz-card" class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-5"></div>
+                <div id="obj-quiz-card" class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-5"></div>
 
                 <div class="flex justify-between items-center">
-                    <button id="obj-prev-btn" class="px-5 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-bold rounded-xl transition">
+                    <button id="obj-prev-btn" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-bold rounded-xl transition">
                         ◀ 이전 문제
                     </button>
                     <div class="flex gap-2">
-                        <button id="obj-next-btn" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl transition">
+                        <button id="obj-next-btn" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl transition">
                             다음 문제 ▶
                         </button>
-                        <button id="obj-finish-btn" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition">
-                            최종 제출 & 채점
+                        <button id="obj-finish-btn" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition">
+                            제출 및 채점
                         </button>
                     </div>
                 </div>
@@ -970,8 +1403,8 @@
                 
                 card.innerHTML = `
                     <div class="flex items-center gap-2">
-                        <span class="w-7 h-7 rounded-lg bg-orange-600 text-white font-black text-xs flex items-center justify-center">${currentQIndex + 1}</span>
-                        <h4 class="font-bold text-base text-slate-900">${q.q}</h4>
+                        <span class="w-6 h-6 rounded-lg bg-orange-600 text-white font-black text-xs flex items-center justify-center">${currentQIndex + 1}</span>
+                        <h4 class="font-bold text-sm sm:text-base text-slate-900">${q.q}</h4>
                     </div>
 
                     <div class="space-y-2.5 pt-2">
@@ -1032,132 +1465,6 @@
             renderQ();
         }
 
-        // 3. Team Quiz Player Simulator
-        function renderTeamQuizPlayer() {
-            const wrapper = document.createElement('div');
-            wrapper.className = 'max-w-4xl mx-auto space-y-6';
-
-            wrapper.innerHTML = `
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    <div class="p-3 bg-blue-600 text-white rounded-xl text-center shadow-sm">
-                        <span class="text-xs font-semibold opacity-80">1팀 (청룡)</span>
-                        <p id="t-score-0" class="text-2xl font-black">0점</p>
-                    </div>
-                    <div class="p-3 bg-rose-600 text-white rounded-xl text-center shadow-sm">
-                        <span class="text-xs font-semibold opacity-80">2팀 (백호)</span>
-                        <p id="t-score-1" class="text-2xl font-black">0점</p>
-                    </div>
-                    <div class="p-3 bg-emerald-600 text-white rounded-xl text-center shadow-sm">
-                        <span class="text-xs font-semibold opacity-80">3팀 (주작)</span>
-                        <p id="t-score-2" class="text-2xl font-black">0점</p>
-                    </div>
-                    <div class="p-3 bg-purple-600 text-white rounded-xl text-center shadow-sm">
-                        <span class="text-xs font-semibold opacity-80">4팀 (현무)</span>
-                        <p id="t-score-3" class="text-2xl font-black">0점</p>
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between bg-white p-4 rounded-xl border border-slate-200">
-                    <div class="flex items-center gap-2">
-                        <span class="text-xl">🎯</span>
-                        <span class="text-xs font-bold text-slate-700">문제를 누르면 확대된 대형 정답 모달이 열리며 득점 팀에게 점수를 부여합니다.</span>
-                    </div>
-                    <span class="text-xs px-2.5 py-1 rounded bg-indigo-50 text-indigo-700 font-bold">10 ~ 30점 퀴즈판</span>
-                </div>
-
-                <div class="grid grid-cols-3 sm:grid-cols-5 gap-3" id="team-quiz-board">
-                    ${activeWork.questions.map((q, idx) => `
-                        <button onclick="openBoardQuestion(${idx})" id="q-tile-${idx}" class="p-4 bg-white hover:bg-indigo-50 border-2 border-slate-200 hover:border-indigo-400 rounded-xl flex flex-col items-center justify-center gap-1 transition shadow-sm">
-                            <span class="text-[11px] font-semibold text-slate-400">문제 ${idx + 1}</span>
-                            <span class="text-2xl font-black text-slate-800">${q.points}점</span>
-                        </button>
-                    `).join('')}
-                </div>
-
-                <div id="live-question-panel" class="hidden bg-white p-6 rounded-2xl border-2 border-indigo-500 shadow-xl space-y-4">
-                    <div class="flex items-center justify-between border-b pb-2">
-                        <span id="lq-points-badge" class="px-3 py-1 bg-indigo-100 text-indigo-800 text-xs font-black rounded-lg">10점 문항</span>
-                        <span id="lq-number" class="text-xs text-slate-400 font-bold">문제 1</span>
-                    </div>
-                    <h4 id="lq-text" class="text-xl sm:text-2xl font-black text-slate-900 leading-snug"></h4>
-                    
-                    <div id="lq-answer-box" class="hidden p-5 bg-emerald-50 rounded-xl border-l-4 border-emerald-500 text-emerald-950">
-                        <p class="text-xs font-bold text-emerald-700">정답:</p>
-                        <p id="lq-answer-text" class="text-2xl sm:text-4xl font-black text-emerald-600 mt-1"></p>
-                    </div>
-
-                    <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t">
-                        <button id="lq-show-ans-btn" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl transition">
-                            정답 확인하기
-                        </button>
-                        <div id="lq-team-award-buttons" class="hidden flex flex-wrap gap-2">
-                            <span class="text-xs font-bold text-slate-500 self-center mr-1">점수 부여:</span>
-                            <button onclick="awardTeamPoints(0)" class="px-3 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg">1팀 +점수</button>
-                            <button onclick="awardTeamPoints(1)" class="px-3 py-1.5 bg-rose-600 text-white text-xs font-bold rounded-lg">2팀 +점수</button>
-                            <button onclick="awardTeamPoints(2)" class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg">3팀 +점수</button>
-                            <button onclick="awardTeamPoints(3)" class="px-3 py-1.5 bg-purple-600 text-white text-xs font-bold rounded-lg">4팀 +점수</button>
-                            <button onclick="closeActiveQuestion()" class="px-3 py-1.5 bg-slate-400 text-white text-xs font-bold rounded-lg">점수 없음</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            modalViewContainer.appendChild(wrapper);
-
-            const teamScores = [0, 0, 0, 0];
-            let activeQIdx = null;
-
-            const livePanel = wrapper.querySelector('#live-question-panel');
-            const lqPointsBadge = wrapper.querySelector('#lq-points-badge');
-            const lqNumber = wrapper.querySelector('#lq-number');
-            const lqText = wrapper.querySelector('#lq-text');
-            const lqAnswerBox = wrapper.querySelector('#lq-answer-box');
-            const lqAnswerText = wrapper.querySelector('#lq-answer-text');
-            const lqShowAnsBtn = wrapper.querySelector('#lq-show-ans-btn');
-            const lqAwardButtons = wrapper.querySelector('#lq-team-award-buttons');
-
-            window.openBoardQuestion = function(idx) {
-                activeQIdx = idx;
-                const q = activeWork.questions[idx];
-                lqNumber.textContent = `문제 ${idx + 1}`;
-                lqPointsBadge.textContent = `${q.points}점 문항`;
-                lqText.textContent = q.q;
-                lqAnswerText.textContent = q.a;
-                lqAnswerBox.classList.add('hidden');
-                lqShowAnsBtn.classList.remove('hidden');
-                lqAwardButtons.classList.add('hidden');
-
-                livePanel.classList.remove('hidden');
-                livePanel.scrollIntoView({ behavior: 'smooth' });
-            };
-
-            lqShowAnsBtn.onclick = () => {
-                lqAnswerBox.classList.remove('hidden');
-                lqShowAnsBtn.classList.add('hidden');
-                lqAwardButtons.classList.remove('hidden');
-            };
-
-            window.awardTeamPoints = function(teamIdx) {
-                if (activeQIdx === null) return;
-                const points = activeWork.questions[activeQIdx].points;
-                teamScores[teamIdx] += points;
-                document.getElementById(`t-score-${teamIdx}`).textContent = `${teamScores[teamIdx]}점`;
-                closeActiveQuestion();
-            };
-
-            window.closeActiveQuestion = function() {
-                if (activeQIdx !== null) {
-                    const tile = document.getElementById(`q-tile-${activeQIdx}`);
-                    if (tile) {
-                        tile.classList.add('opacity-40', 'bg-slate-200', 'cursor-not-allowed');
-                        tile.disabled = true;
-                    }
-                }
-                livePanel.classList.add('hidden');
-                activeQIdx = null;
-            };
-        }
-
         function buildPrintableExamDocument(work, isTeacher) {
             let questionsHtml = '';
 
@@ -1214,7 +1521,7 @@
                 <div id="clean-exam-sheet" style="font-family: 'Noto Sans KR', sans-serif; max-width: 800px; margin: 0 auto; padding: 24px; color: #0f172a; background: #ffffff;">
                     <div style="border: 2px solid #0f172a; padding: 16px; margin-bottom: 20px; text-align: center; border-radius: 4px;">
                         <h2 style="font-size: 20px; font-weight: 900; margin: 0 0 6px 0; letter-spacing: -0.5px;">
-                            국어과 문학 영역 평가 문제지
+                            경상여자고등학교 국어과 문학 평가 문제지
                         </h2>
                         <div style="font-size: 14px; font-weight: bold; color: #4338ca; margin-bottom: 10px;">
                             [ ${work.title} ] (${work.author}) - ${isTeacher ? '교사용 정답 및 해설지' : '학생용 평가 문제지'}
@@ -1236,19 +1543,18 @@
                     </div>
 
                     <div style="text-align: center; font-size: 11px; color: #94a3b8; margin-top: 24px; border-top: 1px solid #e2e8f0; padding-top: 10px;">
-                        국어 문학 인터랙티브 퀴즈 아카이브 포털 · 본 평가 자료는 교실 수업 및 학습용으로 제작되었습니다.
+                        경상여자고등학교 교과서 기반 문학 퀴즈 포털 · 본 평가 자료는 교실 수업 및 학습용으로 제작되었습니다.
                     </div>
                 </div>
             `;
         }
 
-        // PDF Generation Event
         modalPdfBtn.addEventListener('click', () => {
             if (!activeWork) return;
 
             const isTeacher = printVersionType === 'teacher';
             const originalBtnText = modalPdfBtn.innerHTML;
-            modalPdfBtn.innerHTML = `<span>⏳ PDF 생성 중...</span>`;
+            modalPdfBtn.innerHTML = `<span>⏳ 생성 중...</span>`;
             modalPdfBtn.disabled = true;
 
             const printContainer = document.createElement('div');
@@ -1257,7 +1563,7 @@
 
             const opt = {
                 margin: [10, 10, 12, 10],
-                filename: `${activeWork.title}_문제지_${isTeacher ? '교사용' : '학생용'}.pdf`,
+                filename: `[경상여고]_${activeWork.title}_문제지_${isTeacher ? '교사용' : '학생용'}.pdf`,
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { scale: 2, useCORS: true, logging: false },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
@@ -1276,7 +1582,6 @@
             });
         });
 
-        // Print Window Event
         function openPrintWindow() {
             if (!activeWork) return;
             const isTeacher = printVersionType === 'teacher';
@@ -1322,7 +1627,6 @@
 
         // Guide Modal Events
         openGuideBtn.addEventListener('click', () => guideModal.classList.remove('hidden'));
-        viewCurriculumBtn.addEventListener('click', () => guideModal.classList.remove('hidden'));
         closeGuideBtn.addEventListener('click', () => guideModal.classList.add('hidden'));
         closeGuideBtnBottom.addEventListener('click', () => guideModal.classList.add('hidden'));
 
