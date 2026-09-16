@@ -179,7 +179,7 @@
                     <li><strong>모닥불:</strong> 13문항 핵심 객관식 실시간 채점 퀴즈</li>
                 </ul>
                 <div class="p-3 bg-indigo-50 rounded-xl border border-indigo-100 text-indigo-900 text-xs">
-                    💡 <strong>[설정하기]</strong>를 눌러 반별 팀 수(2~5팀)와 팀원 이름을 등록한 후 플레이하면, 점수 부여 및 개인 순위가 자동으로 산출됩니다.
+                    💡 <strong>[설정하기]</strong>를 눌러 반별 팀 수(2~6팀)와 팀원 이름을 등록한 후 플레이하면, 점수 부여 및 개인 순위가 자동으로 산출됩니다.
                 </div>
             </div>
             <div class="text-right pt-2">
@@ -469,7 +469,8 @@
             { bg: 'bg-rose-600', text: 'text-rose-600', border: 'border-rose-500', name: '2팀 (백호)' },
             { bg: 'bg-emerald-600', text: 'text-emerald-600', border: 'border-emerald-500', name: '3팀 (주작)' },
             { bg: 'bg-purple-600', text: 'text-purple-600', border: 'border-purple-500', name: '4팀 (현무)' },
-            { bg: 'bg-amber-600', text: 'text-amber-600', border: 'border-amber-500', name: '5팀 (황룡)' }
+            { bg: 'bg-amber-600', text: 'text-amber-600', border: 'border-amber-500', name: '5팀 (황룡)' },
+            { bg: 'bg-cyan-600', text: 'text-cyan-600', border: 'border-cyan-500', name: '6팀 (봉황)' }
         ];
 
         let workTeamConfigs = {};
@@ -720,7 +721,7 @@
                             <h4 class="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
                                 <span>⚙️ [${activeWork.title}] 팀 및 참가 인원 설정</span>
                             </h4>
-                            <p class="text-xs text-slate-500 mt-1">참가 팀 수(2~5팀)와 팀원 이름을 등록하면 퀴즈 대결 시 개인별 점수가 자동 집계됩니다.</p>
+                            <p class="text-xs text-slate-500 mt-1">참가 팀 수(2~6팀)와 팀원 이름을 등록하면 퀴즈 대결 시 개인별 점수가 자동 집계됩니다.</p>
                         </div>
                         <div class="flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 shrink-0">
                             <label for="setup-team-count-select" class="text-xs font-bold text-slate-700">참가 팀 수:</label>
@@ -729,6 +730,7 @@
                                 <option value="3" ${teamCount === 3 ? 'selected' : ''}>3팀 대결</option>
                                 <option value="4" ${teamCount === 4 ? 'selected' : ''}>4팀 대결</option>
                                 <option value="5" ${teamCount === 5 ? 'selected' : ''}>5팀 대결</option>
+                                <option value="6" ${teamCount === 6 ? 'selected' : ''}>6팀 대결</option>
                             </select>
                         </div>
                     </div>
@@ -867,9 +869,10 @@
                 t.players.forEach(p => p.score = 0);
             });
 
-            const colClass = teams.length === 2 ? 'grid-cols-2' 
+            const colClass = teams.length === 2 ? 'grid-cols-2'
                            : teams.length === 3 ? 'grid-cols-3'
                            : teams.length === 5 ? 'grid-cols-2 sm:grid-cols-5'
+                           : teams.length === 6 ? 'grid-cols-2 sm:grid-cols-3'
                            : 'grid-cols-2 sm:grid-cols-4';
 
             wrapper.innerHTML = `
