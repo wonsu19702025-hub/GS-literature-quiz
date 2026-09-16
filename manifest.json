@@ -1,0 +1,19 @@
+{
+  "name": "경상여고 교과서 기반 문학 퀴즈 포털",
+  "short_name": "문학 퀴즈",
+  "description": "소설 3편·극문학 2편·현대시 1편 인터랙티브 퀴즈",
+  "start_url": "./index.html",
+  "scope": "./",
+  "id": "./index.html",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f1f5f9",
+  "theme_color": "#4f46e5",
+  "lang": "ko",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
