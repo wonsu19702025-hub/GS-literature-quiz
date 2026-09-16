@@ -458,11 +458,87 @@
             }
         ];
 
+        // ------- 문항 추가/편집: 브라우저(로컬)에 저장해 새로고침해도 유지됩니다 -------
+        const QUESTION_STORAGE_KEY = 'gsLitQuiz_customQuestions_v1';
+
+        function escapeHtml(str) {
+            return String(str ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        }
+
+        // 편집 전 원본 문항을 따로 보관해 두어야 "기본값으로 초기화"가 가능합니다.
+        const defaultQuestionsById = {};
+        literatureData.forEach(work => {
+            defaultQuestionsById[work.id] = {
+                questions: work.questions ? JSON.parse(JSON.stringify(work.questions)) : null,
+                objectiveQuestions: work.objectiveQuestions ? JSON.parse(JSON.stringify(work.objectiveQuestions)) : null
+            };
+        });
+
+        function readQuestionStore() {
+            try {
+                const raw = localStorage.getItem(QUESTION_STORAGE_KEY);
+                return raw ? JSON.parse(raw) : {};
+            } catch (e) {
+                console.warn('저장된 문항을 불러오지 못했습니다.', e);
+                return {};
+            }
+        }
+
+        function loadQuestionOverrides() {
+            const saved = readQuestionStore();
+            literatureData.forEach(work => {
+                const override = saved[work.id];
+                if (!override) return;
+                if (work.questions && Array.isArray(override.questions) && override.questions.length) {
+                    work.questions = override.questions;
+                    work.qCount = work.questions.length;
+                }
+                if (work.objectiveQuestions && Array.isArray(override.objectiveQuestions) && override.objectiveQuestions.length) {
+                    work.objectiveQuestions = override.objectiveQuestions;
+                    work.qCount = work.objectiveQuestions.length;
+                }
+            });
+        }
+
+        function persistActiveWorkQuestions() {
+            const saved = readQuestionStore();
+            saved[activeWork.id] = {
+                questions: activeWork.questions || null,
+                objectiveQuestions: activeWork.objectiveQuestions || null
+            };
+            try {
+                localStorage.setItem(QUESTION_STORAGE_KEY, JSON.stringify(saved));
+                return true;
+            } catch (e) {
+                console.warn('문항 저장 실패', e);
+                return false;
+            }
+        }
+
+        function resetActiveWorkQuestions() {
+            const defaults = defaultQuestionsById[activeWork.id];
+            if (!defaults) return;
+            if (defaults.questions) {
+                activeWork.questions = JSON.parse(JSON.stringify(defaults.questions));
+                activeWork.qCount = activeWork.questions.length;
+            }
+            if (defaults.objectiveQuestions) {
+                activeWork.objectiveQuestions = JSON.parse(JSON.stringify(defaults.objectiveQuestions));
+                activeWork.qCount = activeWork.objectiveQuestions.length;
+            }
+            const saved = readQuestionStore();
+            delete saved[activeWork.id];
+            try { localStorage.setItem(QUESTION_STORAGE_KEY, JSON.stringify(saved)); } catch (e) {}
+        }
+
+        loadQuestionOverrides();
+
         let currentFilter = 'all';
         let searchQuery = '';
         let activeWork = null;
         let activeSubTab = 'play';
         let printVersionType = 'teacher';
+        let questionsEditMode = false;
 
         const teamColorsList = [
             { bg: 'bg-blue-600', text: 'text-blue-600', border: 'border-blue-500', name: '1팀 (청룡)' },
@@ -637,6 +713,7 @@
             if (!activeWork) return;
 
             activeSubTab = subTab;
+            questionsEditMode = false;
             modalIcon.textContent = activeWork.icon;
             modalTitle.textContent = activeWork.title;
             modalBadge.textContent = activeWork.modeLabel;
@@ -1155,6 +1232,8 @@
             const container = document.createElement('div');
             container.className = 'max-w-4xl mx-auto space-y-4';
 
+            const editable = !!(activeWork.questions || activeWork.objectiveQuestions);
+
             const header = document.createElement('div');
             header.className = 'flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-white p-4 rounded-xl border border-slate-200 shadow-xs';
             header.innerHTML = `
@@ -1162,30 +1241,46 @@
                     <h4 class="font-bold text-slate-800 flex items-center gap-2">
                         <span>${activeWork.title} - 전체 문항집</span>
                         <span class="text-xs font-bold px-2 py-0.5 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded">총 ${activeWork.qCount}문항</span>
+                        ${questionsEditMode ? '<span class="text-xs font-bold px-2 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded">편집 중</span>' : ''}
                     </h4>
-                    <p class="text-xs text-slate-500 mt-0.5">상단의 [PDF 저장] 또는 [인쇄] 버튼으로 시험지 양식을 출력할 수 있습니다.</p>
+                    <p class="text-xs text-slate-500 mt-0.5">${questionsEditMode ? '문제를 추가·수정·삭제한 뒤 아래 [변경사항 저장] 버튼을 꼭 눌러주세요.' : '상단의 [PDF 저장] 또는 [인쇄] 버튼으로 시험지 양식을 출력할 수 있습니다.'}</p>
                 </div>
-                <div class="flex items-center gap-2 bg-slate-100 p-1 rounded-xl text-xs font-bold">
-                    <button id="mode-teacher-btn" class="px-3 py-1.5 rounded-lg transition ${printVersionType === 'teacher' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'}">
-                        🧑‍🏫 정답 포함 (교사용)
-                    </button>
-                    <button id="mode-student-btn" class="px-3 py-1.5 rounded-lg transition ${printVersionType === 'student' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'}">
-                        📝 정답 가리기 (학생용)
-                    </button>
+                <div class="flex items-center gap-2 flex-wrap">
+                    ${!questionsEditMode ? `
+                        <div class="flex items-center gap-2 bg-slate-100 p-1 rounded-xl text-xs font-bold">
+                            <button id="mode-teacher-btn" class="px-3 py-1.5 rounded-lg transition ${printVersionType === 'teacher' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'}">
+                                🧑‍🏫 정답 포함 (교사용)
+                            </button>
+                            <button id="mode-student-btn" class="px-3 py-1.5 rounded-lg transition ${printVersionType === 'student' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'}">
+                                📝 정답 가리기 (학생용)
+                            </button>
+                        </div>
+                    ` : ''}
+                    ${editable ? `
+                        <button id="toggle-edit-btn" class="px-3 py-1.5 rounded-lg text-xs font-bold transition ${questionsEditMode ? 'bg-slate-800 hover:bg-slate-700 text-white' : 'bg-indigo-600 hover:bg-indigo-700 text-white'}">
+                            ${questionsEditMode ? '👁 보기 모드로 전환' : '✏️ 문제 추가·편집'}
+                        </button>
+                    ` : ''}
                 </div>
             `;
             container.appendChild(header);
 
-            header.querySelector('#mode-teacher-btn').onclick = () => {
-                printVersionType = 'teacher';
-                renderQuestionsTab();
-            };
-            header.querySelector('#mode-student-btn').onclick = () => {
-                printVersionType = 'student';
-                renderQuestionsTab();
-            };
+            const teacherBtn = header.querySelector('#mode-teacher-btn');
+            const studentBtn = header.querySelector('#mode-student-btn');
+            if (teacherBtn) teacherBtn.onclick = () => { printVersionType = 'teacher'; renderQuestionsTab(); };
+            if (studentBtn) studentBtn.onclick = () => { printVersionType = 'student'; renderQuestionsTab(); };
+
+            const editToggleBtn = header.querySelector('#toggle-edit-btn');
+            if (editToggleBtn) editToggleBtn.onclick = () => { questionsEditMode = !questionsEditMode; renderQuestionsTab(); };
 
             const isTeacher = printVersionType === 'teacher';
+
+            if (questionsEditMode && editable) {
+                renderQuestionsEditView(container);
+                modalViewContainer.innerHTML = '';
+                modalViewContainer.appendChild(container);
+                return;
+            }
 
             if (activeWork.questions) {
                 activeWork.questions.forEach((q, idx) => {
@@ -1258,6 +1353,160 @@
 
             modalViewContainer.innerHTML = '';
             modalViewContainer.appendChild(container);
+        }
+
+        function renderQuestionsEditView(container) {
+            const listWrap = document.createElement('div');
+            listWrap.className = 'space-y-4';
+
+            if (activeWork.questions) {
+                activeWork.questions.forEach((q, idx) => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-white p-4 sm:p-5 rounded-xl border-2 border-indigo-100 shadow-xs space-y-2.5 q-edit-card';
+                    card.dataset.idx = idx;
+                    card.innerHTML = `
+                        <div class="flex items-center justify-between gap-3">
+                            <div class="flex items-center gap-2">
+                                <span class="font-black text-indigo-600 text-sm">Q${idx + 1}.</span>
+                                <select class="q-points-input text-xs font-bold border border-slate-300 rounded-lg p-1.5 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                    <option value="10" ${q.points === 10 ? 'selected' : ''}>10점</option>
+                                    <option value="20" ${q.points === 20 ? 'selected' : ''}>20점</option>
+                                    <option value="30" ${q.points === 30 ? 'selected' : ''}>30점</option>
+                                </select>
+                            </div>
+                            <button type="button" class="q-delete-btn text-xs font-bold text-rose-600 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 px-2.5 py-1 rounded-lg transition">🗑 문제 삭제</button>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[11px] font-bold text-slate-500">문제 내용</label>
+                            <textarea class="q-text-input w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500" rows="2" placeholder="문제를 입력하세요">${escapeHtml(q.q)}</textarea>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[11px] font-bold text-emerald-600">모범 정답</label>
+                            <textarea class="q-answer-input w-full p-2.5 bg-emerald-50 border border-emerald-200 rounded-lg text-xs text-emerald-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500" rows="2" placeholder="모범 정답을 입력하세요">${escapeHtml(q.a)}</textarea>
+                        </div>
+                    `;
+                    card.querySelector('.q-points-input').addEventListener('change', e => { q.points = parseInt(e.target.value); });
+                    card.querySelector('.q-text-input').addEventListener('input', e => { q.q = e.target.value; });
+                    card.querySelector('.q-answer-input').addEventListener('input', e => { q.a = e.target.value; });
+                    card.querySelector('.q-delete-btn').addEventListener('click', () => {
+                        if (activeWork.questions.length <= 1) { alert('문제는 최소 1개 이상 있어야 합니다.'); return; }
+                        if (!confirm(`Q${idx + 1}번 문제를 삭제할까요? (저장 전까지는 되돌릴 수 있습니다)`)) return;
+                        activeWork.questions.splice(idx, 1);
+                        renderQuestionsTab();
+                    });
+                    listWrap.appendChild(card);
+                });
+            } else if (activeWork.objectiveQuestions) {
+                activeWork.objectiveQuestions.forEach((q, idx) => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-white p-4 sm:p-5 rounded-xl border-2 border-orange-100 shadow-xs space-y-2.5 oq-edit-card';
+                    card.dataset.idx = idx;
+                    card.innerHTML = `
+                        <div class="flex items-center justify-between gap-3">
+                            <span class="font-black text-orange-600 text-sm">Q${idx + 1}. 객관식 문항</span>
+                            <button type="button" class="oq-delete-btn text-xs font-bold text-rose-600 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 px-2.5 py-1 rounded-lg transition">🗑 문제 삭제</button>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[11px] font-bold text-slate-500">문제 내용</label>
+                            <textarea class="oq-text-input w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500" rows="2" placeholder="문제를 입력하세요">${escapeHtml(q.q)}</textarea>
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="text-[11px] font-bold text-emerald-600">보기 (● 정답 선택)</label>
+                            ${q.options.map((opt, i) => `
+                                <div class="flex items-center gap-2">
+                                    <input type="radio" name="oq-answer-${idx}" class="oq-answer-radio w-4 h-4 accent-emerald-600 shrink-0" value="${i}" ${i === q.answerIndex ? 'checked' : ''}>
+                                    <input type="text" class="oq-option-input flex-1 p-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500" value="${escapeHtml(opt)}" placeholder="보기 ${i + 1}">
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    card.querySelector('.oq-text-input').addEventListener('input', e => { q.q = e.target.value; });
+                    card.querySelectorAll('.oq-option-input').forEach((input, i) => {
+                        input.addEventListener('input', e => { q.options[i] = e.target.value; });
+                    });
+                    card.querySelectorAll('.oq-answer-radio').forEach(radio => {
+                        radio.addEventListener('change', e => { if (e.target.checked) q.answerIndex = parseInt(e.target.value); });
+                    });
+                    card.querySelector('.oq-delete-btn').addEventListener('click', () => {
+                        if (activeWork.objectiveQuestions.length <= 1) { alert('문제는 최소 1개 이상 있어야 합니다.'); return; }
+                        if (!confirm(`Q${idx + 1}번 문제를 삭제할까요? (저장 전까지는 되돌릴 수 있습니다)`)) return;
+                        activeWork.objectiveQuestions.splice(idx, 1);
+                        renderQuestionsTab();
+                    });
+                    listWrap.appendChild(card);
+                });
+            }
+
+            container.appendChild(listWrap);
+
+            const actionBar = document.createElement('div');
+            actionBar.className = 'flex flex-col sm:flex-row items-center justify-between gap-3 bg-white p-4 rounded-xl border border-slate-200 shadow-xs';
+            actionBar.innerHTML = `
+                <button id="q-add-btn" type="button" class="w-full sm:w-auto px-4 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-bold rounded-xl transition flex items-center justify-center gap-1.5">
+                    <span>➕</span> <span>새 문제 추가</span>
+                </button>
+                <div class="flex items-center gap-2 w-full sm:w-auto">
+                    <button id="q-reset-btn" type="button" class="flex-1 sm:flex-none px-4 py-2.5 text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-xl transition">
+                        ↩️ 기본 문항으로 초기화
+                    </button>
+                    <button id="q-save-btn" type="button" class="flex-1 sm:flex-none px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black rounded-xl shadow transition">
+                        💾 변경사항 저장
+                    </button>
+                </div>
+            `;
+            container.appendChild(actionBar);
+
+            actionBar.querySelector('#q-add-btn').onclick = () => {
+                if (activeWork.questions) {
+                    activeWork.questions.push({ points: 10, q: '', a: '' });
+                } else if (activeWork.objectiveQuestions) {
+                    activeWork.objectiveQuestions.push({ q: '', options: ['', '', '', ''], answerIndex: 0 });
+                }
+                renderQuestionsTab();
+                requestAnimationFrame(() => {
+                    const cards = modalViewContainer.querySelectorAll('.q-edit-card, .oq-edit-card');
+                    const last = cards[cards.length - 1];
+                    if (last) {
+                        last.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        const ta = last.querySelector('textarea');
+                        if (ta) ta.focus();
+                    }
+                });
+            };
+
+            actionBar.querySelector('#q-reset-btn').onclick = () => {
+                if (!confirm('이 작품에서 편집한 내용을 모두 지우고 기본 문항으로 되돌릴까요? 이 작업은 되돌릴 수 없습니다.')) return;
+                resetActiveWorkQuestions();
+                renderQuestionsTab();
+                renderCards();
+            };
+
+            actionBar.querySelector('#q-save-btn').onclick = () => {
+                const list = activeWork.questions || activeWork.objectiveQuestions;
+                const emptyIdx = list.findIndex(q => !q.q || !q.q.trim());
+                if (emptyIdx !== -1) {
+                    alert(`Q${emptyIdx + 1}번 문제의 내용이 비어 있습니다. 내용을 입력한 후 저장해주세요.`);
+                    return;
+                }
+                if (activeWork.objectiveQuestions) {
+                    const badIdx = activeWork.objectiveQuestions.findIndex(q => q.options.some(o => !o || !o.trim()));
+                    if (badIdx !== -1) {
+                        alert(`Q${badIdx + 1}번 문제의 보기 중 빈 칸이 있습니다. 모든 보기를 입력해주세요.`);
+                        return;
+                    }
+                }
+                if (activeWork.questions) activeWork.qCount = activeWork.questions.length;
+                if (activeWork.objectiveQuestions) activeWork.qCount = activeWork.objectiveQuestions.length;
+                const ok = persistActiveWorkQuestions();
+                renderCards();
+                const saveBtn = actionBar.querySelector('#q-save-btn');
+                if (ok) {
+                    saveBtn.textContent = '✅ 저장 완료!';
+                    setTimeout(() => { if (saveBtn.isConnected) saveBtn.textContent = '💾 변경사항 저장'; }, 1500);
+                } else {
+                    alert('저장에 실패했습니다. 브라우저 저장 공간이 가득 찼을 수 있습니다.');
+                }
+            };
         }
 
         function renderSummaryTab() {
