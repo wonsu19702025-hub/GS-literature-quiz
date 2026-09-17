@@ -51,14 +51,14 @@
                         <span>경상여고 문학 퀴즈</span>
                         <span class="text-[11px] bg-indigo-100 text-indigo-700 font-bold px-2 py-0.5 rounded-full border border-indigo-200">교과서 통합</span>
                     </h1>
-                    <p class="text-[11px] text-slate-500 hidden sm:block">소설 3편 · 극문학 2편 · 현대시 1편 인터랙티브 퀴즈</p>
+                    <p class="text-[11px] text-slate-500 hidden sm:block">소설 4편 · 극문학 2편 · 현대시 1편 인터랙티브 퀴즈</p>
                 </div>
             </div>
 
             <div class="flex items-center gap-2 sm:gap-3">
                 <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    총 6편 제재 수록
+                    총 7편 제재 수록
                 </span>
                 <button id="open-guide-btn" class="px-3 py-1.5 text-xs font-bold text-slate-700 hover:text-indigo-600 bg-slate-100 hover:bg-slate-200 rounded-lg transition">
                     💡 이용 가이드
@@ -82,7 +82,7 @@
                     경상여고 교과서 기반 문학 퀴즈
                 </h2>
                 <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                    선생님과 학생이 함께 즐기는 <span class="text-white font-semibold underline decoration-sky-400">소설 3편, 극문학 2편, 현대시 1편</span>의 실감형 퀴즈입니다. 팀 수와 팀원을 직접 설정하고, 대형 화면으로 정답을 확인하며 즐겨보세요!
+                    선생님과 학생이 함께 즐기는 <span class="text-white font-semibold underline decoration-sky-400">소설 4편, 극문학 2편, 현대시 1편</span>의 실감형 퀴즈입니다. 팀 수와 팀원을 직접 설정하고, 대형 화면으로 정답을 확인하며 즐겨보세요!
                 </p>
 
                 <!-- Search & Reset -->
@@ -100,16 +100,16 @@
 
         <section class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-200 pb-4 no-print">
             <div class="flex flex-wrap gap-2" id="filter-tabs">
-                <button data-category="all" class="filter-tab active px-3.5 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-sm transition">전체 (6)</button>
-                <button data-category="novel" class="filter-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 transition">📖 소설 (3)</button>
+                <button data-category="all" class="filter-tab active px-3.5 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-sm transition">전체 (7)</button>
+                <button data-category="novel" class="filter-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 transition">📖 소설 (4)</button>
                 <button data-category="play" class="filter-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 transition">🎭 극문학 (2)</button>
                 <button data-category="poem" class="filter-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 transition">📜 시 (1)</button>
-                <button data-category="team" class="filter-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 transition">🏆 팀대결 쇼 (5)</button>
+                <button data-category="team" class="filter-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 transition">🏆 팀대결 쇼 (6)</button>
                 <button data-category="quiz" class="filter-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 transition">🎯 객관식 퀴즈 (1)</button>
             </div>
 
             <div class="text-xs text-slate-500 flex items-center gap-3">
-                <span id="card-counter" class="font-bold text-indigo-600">6개 제재 등록됨</span>
+                <span id="card-counter" class="font-bold text-indigo-600">7개 제재 등록됨</span>
             </div>
         </section>
 
@@ -169,11 +169,12 @@
                 <button id="close-guide-btn" class="text-slate-400 hover:text-slate-600 text-2xl font-bold">&times;</button>
             </div>
             <div class="space-y-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
-                <p class="font-bold text-slate-800">교과서 핵심 문학 6편이 완벽하게 정리되어 있습니다:</p>
+                <p class="font-bold text-slate-800">교과서 핵심 문학 7편이 완벽하게 정리되어 있습니다:</p>
                 <ul class="list-disc pl-4 space-y-1 text-slate-700">
                     <li><strong>춘향전:</strong> 20문항 팀 대결 쇼 (10~30점 배점 & 행운의 객관식)</li>
                     <li><strong>겨울나들이:</strong> 20문항 팀 대결 쇼 (여로 구조 및 상처·치유)</li>
                     <li><strong>만세전:</strong> 20문항 팀 대결 쇼 (식민지 현실 자각과 지식인의 고뇌)</li>
+                    <li><strong>미스터 방:</strong> 20문항 팀 대결 쇼 (기회주의적 세태 풍자, 인물의 희화화)</li>
                     <li><strong>봉산탈춤:</strong> 20문항 팀 대결 쇼 (양반 조롱과 언어유희, 춤의 기능)</li>
                     <li><strong>파수꾼:</strong> 23문항 팀 대결 쇼 (이리와 흰 구름, 촌장의 궤변 풍자)</li>
                     <li><strong>모닥불:</strong> 13문항 핵심 객관식 실시간 채점 퀴즈</li>
@@ -326,6 +327,50 @@
                     { points: 30, q: "연락선 목욕탕 장면이 이 소설 전체에서 가지는 문학적 기능을 서술하시오.", a: "주인공이 관념적인 생각에서 벗어나 일제의 잔혹한 수탈과 민족적 멸시의 실상을 구체적으로 직시하게 되는 결정적 계기" },
                     { points: 30, q: "주인공이 결국 현실을 바꾸지 못하고 다시 도쿄로 떠나는 결말이 보여주는 당대 지식인의 한계를 서술하시오.", a: "식민지 현실의 비극을 자각했으나, 이에 맞서 적극적으로 저항하지 못하고 현실을 도피하려는 무기력한 식민지 지식인의 한계를 보여준다." },
                     { points: 30, q: "<만세전>이 한국 근대 소설사에서 '사실주의 소설의 백미'로 평가받는 이유를 서술하시오.", a: "식민지 조선의 비참한 현실과 사회 모순을 관념적 미화 없이 구체적이고 치밀한 사실적 묘사로 생생하게 폭로했기 때문이다." }
+                ]
+            },
+            {
+                id: 'mister_bang',
+                title: '미스터 방',
+                author: '채만식 (현대 풍자 소설)',
+                category: 'novel',
+                categoryLabel: '현대 소설 · 풍자 소설',
+                mode: 'team',
+                modeLabel: '팀 대결 퀴즈 쇼',
+                color: 'from-cyan-600 to-blue-700',
+                badgeBg: 'bg-cyan-100 text-cyan-700 border-cyan-200',
+                icon: '🎩',
+                qCount: 20,
+                desc: '광복 직후 혼란스러운 시대를 배경으로, 신기료장수였던 방삼복이 미군 통역관 "미스터 방"이 되어 권세를 누리는 모습을 통해 외세에 기대어 출세하는 기회주의적 인물을 풍자한 소설입니다.',
+                tags: ['풍자 소설', '세태 소설', '희화화', '미스터 방', '기회주의'],
+                summary: [
+                    '갈래: 단편 소설, 세태 소설, 풍자 소설',
+                    '시점: 전지적 작가 시점',
+                    '배경: 광복 직후, 서울(현저동·종로)',
+                    '주제: 광복 직후 외세에 기대어 권세를 좇는 기회주의적 세태 비판',
+                    '주요 특징: 인물의 희화화, 판소리 사설체적 문체(구어체, 편집자적 논평), 해학과 풍자를 통한 현실 비판'
+                ],
+                questions: [
+                    { points: 10, q: "이 소설의 작가는 누구인가요?", a: "채만식" },
+                    { points: 10, q: "이 소설의 시간적 배경은 언제인가요?", a: "광복(해방) 직후" },
+                    { points: 10, q: "주인공 방삼복이 미군 장교의 통역관이 된 뒤 사람들에게 불리게 된 이름은 무엇인가요?", a: "미스터 방" },
+                    { points: 10, q: "방삼복이 통역관이 되기 전, 서울 현저동에 살며 하던 직업은 무엇인가요?", a: "신기료장수 (헌 신 고치는 일)" },
+                    { points: 10, q: "방삼복에게 복수를 부탁하러 찾아온 몰락한 친일파 지주는 누구인가요?", a: "백 주사" },
+                    { points: 10, q: "백 주사의 아들로, 일제 강점기 경찰관으로 재산을 축적했던 인물의 이름은 무엇인가요?", a: "백선봉" },
+                    { points: 10, q: "이 소설의 서술 시점은 무엇인가요?", a: "전지적 작가 시점" },
+                    { points: 20, q: "이 소설의 갈래를 당대 사회상을 다룬다는 점에서 무엇이라고 하나요?", a: "세태 소설" },
+                    { points: 20, q: "방삼복이 통역관이 되어 권세를 누리게 되는 계기가 된, 그가 급히 도와준 미군 장교의 계급은 무엇인가요?", a: "S 소위" },
+                    { points: 20, q: "백 주사(와 아들 백선봉)가 몰락하게 된 직접적 계기는 무엇인가요?", a: "광복 후 분노한 군중이 친일·수탈 행적에 대한 보복으로 집을 습격해 재산을 모두 빼앗았기 때문" },
+                    { points: 20, q: "백 주사의 복수 부탁을 듣고 방삼복이 우쭐대며 한 다짐의 내용은 무엇인가요?", a: "엠피(MP)를 천 명이고 만 명이고 동원해 마을을 쑥밭으로 만들어 놓겠다는 다짐" },
+                    { points: 20, q: "이 소설에서 인물의 외양이나 행동을 우스꽝스럽게 과장하여 표현하는 서술 기법을 무엇이라 하나요?", a: "희화화" },
+                    { points: 20, q: "이 소설이 판소리 사설체의 영향을 받았다고 볼 수 있는 문체상의 특징은 무엇인가요?", a: "구어체, 독자(청자)에게 말을 건네는 듯한 서술 방식" },
+                    { points: 30, q: "이 소설의 결말(마지막 장면)에서 일어난 사건과 그 결말이 지닌 의미를 서술하시오.", a: "방삼복이 노대에서 무심코 뱉은 양칫물이 하필 찾아온 S 소위의 얼굴에 정통으로 맞아, S 소위가 격분해 그를 후려치는 것으로 끝난다. 이는 방삼복이 누리던 부와 권세가 한순간의 사소한 실수로도 허망하게 무너질 수 있음을 암시하며, 외세에 빌붙어 얻은 권세의 허약한 기반을 풍자적으로 보여준다." },
+                    { points: 30, q: "이 소설의 제목 '미스터 방'에 담긴 풍자적 의미를 서술하시오.", a: "신기료장수였던 방삼복이 미군 통역관이 되면서 서양식 호칭인 '미스터 방'으로 불리게 된 것을 통해, 해방 직후 외세에 기대어 하루아침에 권세를 얻은 기회주의적 인물들의 세태를 풍자한다." },
+                    { points: 30, q: "방삼복과 백 주사 두 인물이 공통으로 지닌 성격적 특징을 서술하시오.", a: "둘 다 공동체나 민족의 문제보다 개인의 사익을 우선시하며, 자신의 이익을 위해서라면 시류와 권력에 빌붙는 기회주의적 태도를 보인다." },
+                    { points: 30, q: "방삼복의 해방 전후 삶을 대조하여 이 작품의 주제를 서술하시오.", a: "해방 전 보잘것없는 신기료장수였던 방삼복이 해방 후 미군 통역관이 되어 권세를 누리는 모습을 대조적으로 그려냄으로써, 능력이나 자격과 무관하게 외세에 기생해 출세하는 기회주의적 세태를 비판한다." },
+                    { points: 30, q: "이 소설에서 '엠피(MP)'라는 소재가 상징하는 바를 서술하시오.", a: "광복 직후 미군정 치하에서 통역관(권력자)이 마음대로 휘두를 수 있었던 초법적이고 폭력적인 권력을 상징한다." },
+                    { points: 30, q: "백 주사가 방삼복에게 재산의 절반을 주겠다고 제안한 행동을 통해 드러나는 백 주사의 인물됨을 서술하시오.", a: "과거 친일 행적을 반성하지 않고, 자신의 부와 권세를 되찾기 위해서라면 수단과 방법을 가리지 않는 몰염치하고 기회주의적인 인물임이 드러난다." },
+                    { points: 30, q: "이 작품이 풍자하는 해방 직후의 사회 현실을 서술하시오.", a: "진정한 능력이나 도덕성과 무관하게, 외국어 능력이나 외세와의 친분만으로 하루아침에 권세를 얻거나 몰락하는 혼란스럽고 부조리한 해방 직후의 사회상을 풍자한다." }
                 ]
             },
             {
