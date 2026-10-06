@@ -265,7 +265,7 @@
                     <h4 class="text-base font-black text-slate-900">6. 이럴 땐 어떻게 하죠?</h4>
                     <div class="space-y-1.5 text-slate-600">
                         <p><strong class="text-slate-800">Q. 답이 거의 맞는데 표현이 달라요.</strong> 선생님이 핵심이 맞는지 보고 인정 여부를 정해요. 판정은 선생님 몫이에요.</p>
-                        <p><strong class="text-slate-800">Q. 두 팀이 동시에 답했어요.</strong> 먼저 손을 든 팀 순서대로 선생님이 확인해요. 애매하면 다음 문제에서 만회할 수 있어요.</p>
+                        <p><strong class="text-slate-800">Q. 두 팀이 동시에 답했어요.</strong> 두 팀이 같은 정답을 동시에 말했다면 선생님이 <strong>동시 정답</strong>으로 인정해서 두 팀 모두 점수를 받아요. 순서가 애매하면 선생님이 확인해요.</p>
                         <p><strong class="text-slate-800">Q. 점수가 적어도 의미 있나요?</strong> 네! 해설을 읽고 이해한 만큼이 진짜 점수예요. 퀴즈가 끝난 뒤 만족도 설문에도 솔직하게 답해 주세요.</p>
                     </div>
                 </section>
@@ -1212,6 +1212,16 @@
                                     <span>❌</span> <span>맞춘 사람 없음</span>
                                 </button>
                             </div>
+                            <label class="flex items-center gap-2 p-2.5 bg-amber-50 border border-amber-200 rounded-lg cursor-pointer select-none">
+                                <input type="checkbox" id="lq-multi-toggle" class="w-4 h-4 accent-amber-600">
+                                <span class="text-xs font-bold text-amber-900">🤝 두 팀 이상이 동시에 맞혔어요 <span class="font-medium text-amber-700">(체크하면 여러 팀에 점수를 줄 수 있어요)</span></span>
+                            </label>
+                            <div id="lq-multi-summary" class="hidden p-3 bg-emerald-50 border border-emerald-200 rounded-lg space-y-2">
+                                <p id="lq-multi-summary-text" class="text-xs font-bold text-emerald-800"></p>
+                                <button type="button" id="lq-multi-finish-btn" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black rounded-lg transition">
+                                    ✅ 점수 반영 완료 · 다음 문제로
+                                </button>
+                            </div>
                             <div class="space-y-3" id="award-teams-list"></div>
                             <div class="pt-2 border-t border-slate-200 flex justify-center">
                                 <button type="button" onclick="closeActiveQuestion(true)" class="w-full py-2.5 bg-slate-200 hover:bg-rose-100 hover:text-rose-700 hover:border-rose-300 border border-slate-300 text-slate-700 font-bold text-xs rounded-xl transition flex items-center justify-center gap-1.5 shadow-xs">
@@ -1263,6 +1273,11 @@
             const lqOptions = wrapper.querySelector('#lq-options');
             const drawTeamsEl = wrapper.querySelector('#lq-draw-teams');
             const drawResultEl = wrapper.querySelector('#lq-draw-result');
+            const multiToggle = wrapper.querySelector('#lq-multi-toggle');
+            const multiSummary = wrapper.querySelector('#lq-multi-summary');
+            const multiSummaryText = wrapper.querySelector('#lq-multi-summary-text');
+            const multiFinishBtn = wrapper.querySelector('#lq-multi-finish-btn');
+            let awardedThisQ = {};      // 동시 정답 모드에서 이번 문제에 점수를 받은 팀 { tIdx: { pIdx, points } }
             let lastDraw = null;        // { tIdx, pIdx } 이번 문제에서 마지막으로 뽑힌 학생
             let drawExcluded = {};      // 이번 문제에서 '다시 뽑기'로 제외된 학생 { tIdx: [pIdx...] }
             let drawTimer = null;
@@ -1410,6 +1425,9 @@
                 lqNoPointsBtn.classList.add('hidden');
                 lqAwardButtons.classList.add('hidden');
                 resetDrawState();
+                awardedThisQ = {};
+                multiToggle.checked = false;
+                updateMultiSummary();
 
                 livePanel.classList.remove('hidden');
                 livePanel.scrollIntoView({ behavior: 'smooth' });
@@ -1444,6 +1462,17 @@
                 teams.forEach((t, tIdx) => {
                     const col = teamColorsList[tIdx] || teamColorsList[0];
                     const teamRow = document.createElement('div');
+                    if (awardedThisQ[tIdx]) {
+                        const aw = awardedThisQ[tIdx];
+                        const who = (aw.pIdx !== null && t.players[aw.pIdx]) ? ` · ${escapeHtml(t.players[aw.pIdx].name)}` : ' · 팀 전체';
+                        teamRow.className = 'p-3 bg-emerald-50 rounded-lg border border-emerald-300 flex items-center justify-between gap-2';
+                        teamRow.innerHTML = `
+                            <strong class="${col.text} text-xs font-bold">${escapeHtml(t.name)}</strong>
+                            <span class="text-xs font-black text-emerald-700">✅ +${aw.points}점 부여됨${who}</span>
+                            <button type="button" onclick="undoAward(${tIdx})" class="px-2 py-1 bg-white hover:bg-rose-50 border border-slate-300 hover:border-rose-300 text-slate-600 hover:text-rose-600 rounded text-[11px] font-bold transition">↩ 취소</button>`;
+                        awardTeamsList.appendChild(teamRow);
+                        return;
+                    }
                     teamRow.className = 'p-3 bg-white rounded-lg border border-slate-200 space-y-2';
                     teamRow.innerHTML = `
                         <div class="flex items-center justify-between">
@@ -1466,17 +1495,54 @@
                 });
             }
 
+            function refreshTeamScore(teamIdx) {
+                const scoreElem = document.getElementById(`t-score-${teamIdx}`);
+                if (scoreElem) scoreElem.textContent = `${teams[teamIdx].score}점`;
+            }
+
+            function updateMultiSummary() {
+                const entries = Object.keys(awardedThisQ);
+                const any = entries.length > 0;
+                multiSummary.classList.toggle('hidden', !any);
+                if (any) {
+                    multiSummaryText.textContent = '동시 정답 인정: ' + entries.map(i => `${teams[i].name} +${awardedThisQ[i].points}점`).join(' · ');
+                }
+                // 이미 점수를 준 뒤에는 '맞춘 사람 없음' 버튼을 숨겨 실수로 넘어가지 않게 합니다.
+                lqAwardButtons.querySelectorAll('button[onclick="closeActiveQuestion(true)"]').forEach(b => { b.style.display = any ? 'none' : ''; });
+                lqNoPointsBtn.style.display = any ? 'none' : '';
+            }
+
             window.awardPointsToTarget = function(teamIdx, playerIdx) {
                 if (activeQIdx === null) return;
                 const points = activeWork.questions[activeQIdx].points;
+                const multi = multiToggle.checked;
+                if (multi && awardedThisQ[teamIdx]) return;   // 같은 팀에 중복 부여 방지
                 teams[teamIdx].score += points;
                 if (playerIdx !== null && teams[teamIdx].players[playerIdx]) {
                     teams[teamIdx].players[playerIdx].score += points;
                 }
-                const scoreElem = document.getElementById(`t-score-${teamIdx}`);
-                if (scoreElem) scoreElem.textContent = `${teams[teamIdx].score}점`;
-                closeActiveQuestion(true);
+                refreshTeamScore(teamIdx);
+                if (!multi) {
+                    closeActiveQuestion(true);
+                    return;
+                }
+                awardedThisQ[teamIdx] = { pIdx: (playerIdx !== null && teams[teamIdx].players[playerIdx]) ? playerIdx : null, points };
+                renderAwardTeamButtons();
+                updateMultiSummary();
             };
+
+            window.undoAward = function(teamIdx) {
+                const aw = awardedThisQ[teamIdx];
+                if (!aw) return;
+                teams[teamIdx].score -= aw.points;
+                if (aw.pIdx !== null && teams[teamIdx].players[aw.pIdx]) teams[teamIdx].players[aw.pIdx].score -= aw.points;
+                refreshTeamScore(teamIdx);
+                delete awardedThisQ[teamIdx];
+                renderAwardTeamButtons();
+                updateMultiSummary();
+            };
+
+            multiFinishBtn.onclick = () => { if (Object.keys(awardedThisQ).length) closeActiveQuestion(true); };
 
             lqNoPointsBtn.onclick = () => {
                 closeActiveQuestion(true);
