@@ -60,6 +60,9 @@
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     총 7편 제재 수록
                 </span>
+                <button id="open-student-guide-btn" class="px-3 py-1.5 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition shadow-sm">
+                    🎮 학생용 퀴즈 안내
+                </button>
                 <button id="open-guide-btn" class="px-3 py-1.5 text-xs font-bold text-slate-700 hover:text-indigo-600 bg-slate-100 hover:bg-slate-200 rounded-lg transition">
                     💡 이용 가이드
                 </button>
@@ -69,7 +72,7 @@
 
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6 sm:space-y-8">
         
-        <!-- Hero Section -->
+        <!-- Hero Section with Custom Title -->
         <section class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
             <div class="absolute -right-10 -bottom-10 w-72 h-72 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
             <div class="absolute right-1/4 -top-10 w-48 h-48 bg-sky-500/15 rounded-full blur-2xl pointer-events-none"></div>
@@ -82,14 +85,14 @@
                     경상여고 교과서 기반 문학 퀴즈
                 </h2>
                 <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                    선생님과 학생이 함께 즐기는 <span class="text-white font-semibold underline decoration-sky-400">소설 4편, 극문학 2편, 현대시 1편</span>의 실감형 퀴즈입니다. 팀 수와 팀원을 등록하고, <span class="text-amber-300 font-bold">동시 정답 다중 득점 기능</span>으로 박진감 넘치게 즐겨보세요!
+                    선생님과 학생이 함께 즐기는 <span class="text-white font-semibold underline decoration-sky-400">소설 4편, 극문학 2편, 현대시 1편</span>의 실감형 퀴즈입니다. 팀 수와 팀원을 직접 설정하고, 대형 화면으로 정답을 확인하며 즐겨보세요!
                 </p>
 
                 <!-- Search & Reset -->
                 <div class="pt-2 flex flex-col sm:flex-row gap-2.5">
                     <div class="relative flex-1">
                         <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">🔍</span>
-                        <input id="search-input" type="text" placeholder="작품명(춘향전, 미스터 방, 파수꾼...), 작가, 키워드 검색..." class="w-full pl-10 pr-4 py-2.5 bg-white/10 border border-white/20 rounded-xl text-white placeholder-slate-400 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-sky-400 focus:bg-white/20 transition">
+                        <input id="search-input" type="text" placeholder="작품명(춘향전, 겨울나들이, 파수꾼...), 작가, 키워드 검색..." class="w-full pl-10 pr-4 py-2.5 bg-white/10 border border-white/20 rounded-xl text-white placeholder-slate-400 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-sky-400 focus:bg-white/20 transition">
                     </div>
                     <button id="reset-filter-btn" class="px-5 py-2.5 bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs sm:text-sm rounded-xl transition shadow">
                         전체 보기
@@ -98,7 +101,6 @@
             </div>
         </section>
 
-        <!-- Filter Tabs -->
         <section class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-200 pb-4 no-print">
             <div class="flex flex-wrap gap-2" id="filter-tabs">
                 <button data-category="all" class="filter-tab active px-3.5 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-sm transition">전체 (7)</button>
@@ -120,7 +122,6 @@
         </section>
     </main>
 
-    <!-- Quiz Player Modal -->
     <div id="player-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-5 modal-bg">
         <div id="player-modal-content" class="bg-white rounded-2xl shadow-2xl w-full max-w-5xl h-[94vh] flex flex-col overflow-hidden border border-slate-200 transform transition-all scale-95 opacity-0">
             <!-- Modal Header -->
@@ -173,21 +174,105 @@
             <div class="space-y-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
                 <p class="font-bold text-slate-800">교과서 핵심 문학 7편이 완벽하게 정리되어 있습니다:</p>
                 <ul class="list-disc pl-4 space-y-1 text-slate-700">
-                    <li><strong>춘향전:</strong> 20문항 팀 대결 쇼 (10~30점 배점 & 모범 답안·해설)</li>
-                    <li><strong>겨울나들이:</strong> 20문항 팀 대결 쇼 (여로 구조 및 상처·치유)</li>
+                    <li><strong>춘향전:</strong> 20문항 팀 대결 쇼 (10~30점 배점 & 행운의 객관식)</li>
+                    <li><strong>겨울나들이:</strong> 20문항 팀 대결 쇼 (여로 구조 및 상처·치유 · 🍀 행운의 객관식 4문항 포함)</li>
                     <li><strong>만세전:</strong> 20문항 팀 대결 쇼 (식민지 현실 자각과 지식인의 고뇌)</li>
                     <li><strong>미스터 방:</strong> 20문항 팀 대결 쇼 (기회주의적 세태 풍자, 인물의 희화화)</li>
                     <li><strong>봉산탈춤:</strong> 20문항 팀 대결 쇼 (양반 조롱과 언어유희, 춤의 기능)</li>
                     <li><strong>파수꾼:</strong> 23문항 팀 대결 쇼 (이리와 흰 구름, 촌장의 궤변 풍자)</li>
                     <li><strong>모닥불:</strong> 13문항 핵심 객관식 실시간 채점 퀴즈</li>
                 </ul>
-                <div class="p-3 bg-indigo-50 rounded-xl border border-indigo-100 text-indigo-900 text-xs space-y-1.5">
-                    <p>💡 <strong>[⚙️ 설정하기]</strong>를 눌러 반별 팀 수(2~6팀)와 팀원 이름을 등록해 두면 점수 부여 및 개인 순위가 자동 산출됩니다.</p>
-                    <p>✨ <strong>[동시 정답 다중 득점 지원]</strong> 여러 팀이나 여러 학생이 동시에 맞힌 경우, 여러 대상을 복수 선택(토글)한 후 한 번에 점수를 부여할 수 있습니다.</p>
+                <div class="p-3 bg-indigo-50 rounded-xl border border-indigo-100 text-indigo-900 text-xs">
+                    💡 <strong>[설정하기]</strong>를 눌러 반별 팀 수(2~6팀)와 팀원 이름을 등록한 후 플레이하면, 점수 부여 및 개인 순위가 자동으로 산출됩니다.
                 </div>
             </div>
             <div class="text-right pt-2">
                 <button id="close-guide-btn-bottom" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-xl transition">닫기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Guide Modal (학생용 퀴즈 안내) -->
+    <div id="student-guide-modal" class="hidden fixed inset-0 z-[60] flex items-center justify-center p-3 sm:p-5 modal-bg">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[92vh] flex flex-col overflow-hidden">
+            <div class="flex justify-between items-center px-5 py-4 bg-gradient-to-r from-indigo-700 to-sky-600 text-white shrink-0">
+                <div>
+                    <h3 class="text-lg sm:text-xl font-black">🎮 문학 퀴즈 쇼, 이렇게 진행해요!</h3>
+                    <p class="text-xs text-indigo-100 mt-0.5">시작 전에 함께 읽어 보세요 · 대형 화면으로 띄워 안내할 수 있어요</p>
+                </div>
+                <button id="close-student-guide-btn" class="w-9 h-9 rounded-lg bg-white/15 hover:bg-white/30 text-2xl font-bold leading-none">&times;</button>
+            </div>
+
+            <div class="overflow-y-auto p-5 sm:p-6 space-y-6 text-sm text-slate-700 leading-relaxed">
+
+                <section class="space-y-2">
+                    <h4 class="text-base font-black text-slate-900">1. 이 퀴즈는 어떤 게임인가요?</h4>
+                    <p>교과서에서 배운 작품을 <strong>팀끼리 힘을 모아</strong> 풀어 보는 퀴즈 대결이에요. 정답을 외웠는지 겨루는 시험이 아니라, <strong>같이 떠올리고 서로 설명하며 작품을 다시 정리하는 시간</strong>입니다.</p>
+                </section>
+
+                <section class="space-y-2">
+                    <h4 class="text-base font-black text-slate-900">2. 진행 순서</h4>
+                    <ol class="space-y-2">
+                        <li class="flex gap-3 p-3 bg-slate-50 rounded-xl border border-slate-200"><span class="shrink-0 w-7 h-7 rounded-full bg-indigo-600 text-white text-xs font-black flex items-center justify-center">1</span><span><strong>문제 고르기</strong> — 화면의 점수 칸(10·20·30점)을 눌러 문제를 엽니다. 순서는 선생님이 정한 규칙(팀 돌아가며 고르기)을 따라요.</span></li>
+                        <li class="flex gap-3 p-3 bg-slate-50 rounded-xl border border-slate-200"><span class="shrink-0 w-7 h-7 rounded-full bg-indigo-600 text-white text-xs font-black flex items-center justify-center">2</span><span><strong>팀 토의</strong> — 문제가 뜨면 목소리를 낮춰 <strong>팀원끼리 상의</strong>합니다. 교과서와 필기 노트는 <strong>선생님이 허용한 경우에만</strong> 볼 수 있어요.</span></li>
+                        <li class="flex gap-3 p-3 bg-slate-50 rounded-xl border border-slate-200"><span class="shrink-0 w-7 h-7 rounded-full bg-indigo-600 text-white text-xs font-black flex items-center justify-center">3</span><span><strong>답 정하기</strong> — 팀의 답을 하나로 모은 뒤, 팀 대표가 <strong>손을 들고 말하거나</strong> 선생님 신호에 맞춰 발표합니다. 다른 팀 답을 따라 하지 않아요.</span></li>
+                        <li class="flex gap-3 p-3 bg-slate-50 rounded-xl border border-slate-200"><span class="shrink-0 w-7 h-7 rounded-full bg-indigo-600 text-white text-xs font-black flex items-center justify-center">4</span><span><strong>정답·해설 확인</strong> — 선생님이 <em>정답 확인하기</em>를 누르면 모범 정답과 해설이 나옵니다. <strong>틀려도 해설을 꼭 읽어요.</strong> 배움은 여기서 일어납니다.</span></li>
+                        <li class="flex gap-3 p-3 bg-slate-50 rounded-xl border border-slate-200"><span class="shrink-0 w-7 h-7 rounded-full bg-indigo-600 text-white text-xs font-black flex items-center justify-center">5</span><span><strong>점수 반영</strong> — 맞힌 팀과 맞힌 사람에게 점수가 들어가고, 다 풀면 <strong>팀 순위와 개인 우수자 Top 3</strong>가 발표됩니다.</span></li>
+                    </ol>
+                </section>
+
+                <section class="space-y-2">
+                    <h4 class="text-base font-black text-slate-900">3. 점수는 이렇게 계산해요</h4>
+                    <div class="grid grid-cols-3 gap-2 text-center">
+                        <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200"><p class="text-2xl font-black text-emerald-600">10점</p><p class="text-xs mt-1">기본 · 작품 내용 확인</p></div>
+                        <div class="p-3 rounded-xl bg-amber-50 border border-amber-200"><p class="text-2xl font-black text-amber-600">20점</p><p class="text-xs mt-1">응용 · 표현 기법·의미</p></div>
+                        <div class="p-3 rounded-xl bg-rose-50 border border-rose-200"><p class="text-2xl font-black text-rose-600">30점</p><p class="text-xs mt-1">심화 · 서술·주제 이해</p></div>
+                    </div>
+                    <ul class="list-disc pl-5 space-y-1 text-slate-600">
+                        <li>맞히면 <strong>팀 점수</strong>가 오르고, 정답을 말한 사람의 <strong>개인 점수</strong>도 함께 올라요.</li>
+                        <li>30점 서술형은 <strong>핵심 내용이 들어 있으면 정답</strong>으로 인정해요. 모범 답안과 똑같은 문장일 필요는 없어요.</li>
+                        <li>아무도 못 맞히면 점수 없이 다음 문제로 넘어가요. 점수를 깎지는 않습니다.</li>
+                    </ul>
+                    <div class="p-3 rounded-xl bg-amber-50 border border-amber-200 text-slate-700">
+                        <p><strong class="text-amber-700">🍀 행운의 객관식</strong> — 문제 번호를 불러서 열었을 때 <strong>'행운의 객관식'</strong>이라는 이름과 함께 나오는 문제가 있어요. 어떤 번호가 행운 문제인지는 열어 보기 전까지 몰라요! 보기 ①~④ 중에서 <strong>정답 번호를 고르는 객관식</strong>이고, 점수는 20점이에요. 팀이 함께 의논해 번호 하나를 정하면 돼요.</p>
+                    </div>
+                </section>
+
+                <section class="space-y-2">
+                    <h4 class="text-base font-black text-slate-900">4. 우리 팀의 약속 — 모두가 참여해요</h4>
+                    <p>개인 점수 Top 3가 있어서 <em>잘하는 한 사람이 다 하는 게임</em>이 되기 쉬워요. 그래서 이런 약속을 해요.</p>
+                    <ul class="space-y-1.5">
+                        <li class="p-2.5 rounded-lg bg-indigo-50 border border-indigo-100">🔄 <strong>대표 발표자는 문제마다 돌아가며</strong> 맡아요. 같은 사람이 연달아 말하지 않아요.</li>
+                        <li class="p-2.5 rounded-lg bg-indigo-50 border border-indigo-100">🗣️ 답을 정하기 전에 <strong>팀원 모두의 의견을 한 번씩</strong> 들어요. “모르겠어”도 의견이에요.</li>
+                        <li class="p-2.5 rounded-lg bg-indigo-50 border border-indigo-100">🤝 팀원이 틀려도 <strong>탓하지 않고</strong>, 왜 헷갈렸는지 해설을 보며 같이 확인해요.</li>
+                        <li class="p-2.5 rounded-lg bg-indigo-50 border border-indigo-100">🤫 다른 팀이 발표할 때는 <strong>조용히 들어요.</strong> 답을 가로채거나 소리쳐 알려 주지 않아요.</li>
+                    </ul>
+                </section>
+
+                <section class="space-y-2">
+                    <h4 class="text-base font-black text-slate-900">5. 팀은 이렇게 짜요</h4>
+                    <p>팀은 <strong>자리나 친한 친구 순서가 아니라, 선생님이 골고루 섞어서</strong> 정합니다. 어느 팀이든 해볼 만하게 만드는 거예요.</p>
+                    <ul class="list-disc pl-5 space-y-1 text-slate-600">
+                        <li>팀마다 <strong>3~5명</strong>, 팀 수는 학급 인원에 맞춰 2~6팀으로 정해요.</li>
+                        <li>작품 이해가 빠른 친구, 발표를 잘하는 친구, 꼼꼼히 정리하는 친구가 <strong>한 팀에 몰리지 않도록</strong> 나눠요.</li>
+                        <li>팀 이름과 팀원 이름은 시작 전에 <strong>⚙️ 팀·팀원 설정</strong>에서 등록해요. 이름이 등록돼야 개인 점수가 기록돼요.</li>
+                        <li>팀 구성에 의견이 있으면 <strong>시작 전에 선생님께</strong> 말해 주세요. 시작한 뒤에는 바꾸지 않아요.</li>
+                    </ul>
+                </section>
+
+                <section class="space-y-2">
+                    <h4 class="text-base font-black text-slate-900">6. 이럴 땐 어떻게 하죠?</h4>
+                    <div class="space-y-1.5 text-slate-600">
+                        <p><strong class="text-slate-800">Q. 답이 거의 맞는데 표현이 달라요.</strong> 선생님이 핵심이 맞는지 보고 인정 여부를 정해요. 판정은 선생님 몫이에요.</p>
+                        <p><strong class="text-slate-800">Q. 두 팀이 동시에 답했어요.</strong> 먼저 손을 든 팀 순서대로 선생님이 확인해요. 애매하면 다음 문제에서 만회할 수 있어요.</p>
+                        <p><strong class="text-slate-800">Q. 점수가 적어도 의미 있나요?</strong> 네! 해설을 읽고 이해한 만큼이 진짜 점수예요. 퀴즈가 끝난 뒤 만족도 설문에도 솔직하게 답해 주세요.</p>
+                    </div>
+                </section>
+            </div>
+
+            <div class="px-5 py-3 border-t bg-slate-50 flex items-center justify-between gap-3 shrink-0">
+                <p class="text-[11px] text-slate-500">※ 교과서·노트 허용 여부, 발표 방식 등 세부 규칙은 선생님 안내를 따라요.</p>
+                <button id="close-student-guide-btn-bottom" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl transition shrink-0">알겠어요, 시작!</button>
             </div>
         </div>
     </div>
@@ -269,21 +354,21 @@
                     { points: 10, q: "이 소설의 갈래는 현대 소설, 단편 소설, 그리고 또 무엇인가요?", a: "전쟁 분단 소설", explain: "6·25 전쟁이 남긴 상처와 분단 현실을 다룬다는 점에서, 개인의 상처를 민족사적 비극과 연결짓는 전쟁 분단 소설로 분류된다." },
                     { points: 10, q: "주인공 '나'가 허무함을 느끼고 무작정 떠난 곳은 어디인가요?", a: "온양", explain: "일상에 지친 주인공이 정처 없이 떠난 여행지로, 이곳에서의 낯선 만남이 주인공의 내면 변화를 이끄는 공간적 배경이 된다." },
                     { points: 10, q: "주인공이 여인숙에서 만난 노파가 25년 동안 끊임없이 하던 행동은 무엇인가요?", a: "도리질", explain: "고개를 젓는 도리질은 전쟁의 충격을 부정하고 회피하려는 무의식적 행동으로, 전쟁이 남긴 정신적 외상을 형상화한다." },
-                    { points: 10, q: "노파의 도리질이 시작된 계기가 된 역사적 사건은 무엇인가요?", a: "6.25 동란 (한국전쟁)", explain: "도리질이 시작된 것은 전쟁 중 아들의 생사를 숨기려 했던 절박한 사건 때문으로, 전쟁이 한 개인의 삶을 어떻게 파괴했는지 압축적으로 보여준다." },
                     { points: 10, q: "이 소설의 시점은 무엇인가요?", a: "1인칭 주인공 시점", explain: "주인공 '나'가 직접 사건을 서술함으로써, 독자가 권태에서 공감으로 바뀌어 가는 그녀의 내면 변화를 생생히 따라갈 수 있게 한다." },
                     { points: 10, q: "여인숙 아주머니의 남편은 6.25 전쟁 당시 어떤 직업을 가지고 있었나요?", a: "면장", explain: "남편이 면장이었다는 사실은, 전쟁 중 좌우 대립 속에서 지역 유지 계층이 겪은 비극적 죽음을 구체화하는 배경이 된다." },
                     { points: 10, q: "주인공이 여행을 떠나게 된 직접적인 계기가 된 감정은 무엇인가요?", a: "헛살았다는 느낌", explain: "반복되는 일상에 허무를 느낀 주인공의 심리는, 여행을 통한 자기 성찰과 치유의 서사가 시작되는 계기가 된다." },
                     { points: 20, q: "이 소설은 여행을 통해 깨달음을 얻는 '이것' 구조의 작품입니다. '이것'은 무엇일까요?", a: "여로 구조", explain: "주인공이 낯선 곳을 여행하며 새로운 인물과 사건을 만나 깨달음을 얻고 돌아오는 여로 구조는, 자아 성찰의 서사를 구현하는 대표적 방식이다." },
+                    {"points": 20, "lucky": true, "q": "여인숙 아주머니가 시어머니의 도리질을 감내하며 봉양하는 일을 '대사업'이라 부른 데 담긴 태도로 가장 알맞은 것은?", "options": ["시어머니에 대한 원망을 겉으로 드러내지 않으려는 말", "남들에게 자신의 수고를 자랑하려는 과장된 표현", "정성과 인내로 감당하는 봉양을 숭고한 일로 받아들이는 태도", "여인숙을 더 크게 키우겠다는 사업적 포부"], "answerIndex": 2, "a": "③ 정성과 인내로 감당하는 봉양을 숭고한 일로 받아들이는 태도", "explain": "아주머니는 시어머니를 돌보는 일을 고된 의무가 아니라 평생 해야 할 숭고한 일로 받아들였다. '대사업'이라는 말에는 그 정성과 인내가 담겨 있다."},
                     { points: 20, q: "여인숙 아주머니가 며느리로서 시어머니를 돌보는 것을 무엇이라고 표현했나요?", a: "대사업", explain: "시어머니의 도리질을 수십 년간 묵묵히 감내하며 봉양한 일을 스스로 '대사업'이라 부른 것은, 그 정성과 인내를 숭고한 일로 승화시킨 표현이다." },
                     { points: 20, q: "이 작품은 (          )가 (          )로 바뀌는 과정을 반복한다. 빈칸에 들어갈 말은?", a: "오해, 이해", explain: "처음에는 노파의 기이한 행동을 이해하지 못해 낯설게 느꼈던 감정이, 사연을 알게 되면서 깊은 공감과 연민으로 바뀌는 구조가 작품 전체를 관통한다." },
+                    {"points": 20, "lucky": true, "q": "노파의 '도리질'에 대한 설명으로 알맞지 않은 것은?", "options": ["아들을 원망하는 마음에서 일부러 오래 이어 온 행동이다.", "며느리가 가르친 '몰라요'라는 대응이 습관으로 굳어 시작되었다.", "본인도 멈추기 어려운 습관처럼 25년 동안 이어졌다.", "전쟁이 남긴 상처와 죄책감, 현실에 대한 거부를 형상화한다."], "answerIndex": 0, "a": "① 아들을 원망하는 마음에서 일부러 오래 이어 온 행동이다.", "explain": "도리질은 아들을 원망해서 하는 행동이 아니다. 전쟁 중 겁에 질려 배운 대응이 굳어진 것으로, 전쟁의 상처와 죄책감, 현실 거부를 함께 보여 준다."},
                     { points: 20, q: "소설의 구성 단계 중, 주인공이 여인숙에서 노파와 아주머니를 만나는 부분은 어디에 해당하나요?", a: "위기", explain: "이 대목에서 두 인물의 사연이 밝혀지며 갈등과 긴장이 고조되어, 이후 주제 의식이 본격적으로 드러나는 계기가 마련된다." },
-                    { points: 20, q: "아주머니가 아들의 안위를 확인하기 위해 만든 '미신'의 내용은 무엇인가요?", a: "손님이 낸 돈으로 서울 갈 노자를 마련하면 아들이 무사할 것이라는 미신", explain: "근거 없는 믿음이지만, 전쟁으로 자식을 걱정하는 어머니의 절박한 심정을 상징적으로 드러낸다." },
+                    {"points": 20, "lucky": true, "q": "여인숙 아주머니가 만들어 낸 '미신'이 보여 주는 인물의 마음으로 가장 알맞은 것은?", "options": ["손님을 끌어모으려는 영업 욕심", "전쟁 중인 아들이 무사하기를 바라는 어머니의 절박한 심정", "서울에서 온 손님에 대한 경계심", "노파의 도리질을 멈추게 하려는 치료의 의지"], "answerIndex": 1, "a": "② 전쟁 중인 아들이 무사하기를 바라는 어머니의 절박한 심정", "explain": "근거 없는 믿음이지만, 손님이 낸 돈으로 노자를 마련하면 아들이 무사할 것이라 믿는 데서 자식의 안위를 걱정하는 어머니의 절박함이 드러난다."},
                     { points: 20, q: "주인공 '나'가 여인숙 아주머니와 노파의 손 위에 자신의 손을 포갠 행위에 담긴 의미는 무엇인가요?", a: "전쟁의 상처에 대한 깊은 공감과 연대감 표현", explain: "말없이 손을 맞잡는 행위는 언어를 넘어선 위로의 몸짓으로, 타인의 고통에 공감하게 된 주인공의 변화된 내면을 압축적으로 보여준다." },
+                    {"points": 20, "lucky": true, "q": "여행을 마친 주인공 '나'의 내면 변화로 가장 알맞은 것은?", "options": ["노파의 사연에 거리를 두고 서둘러 일상으로 돌아가려 한다.", "전쟁을 일으킨 이들에 대한 분노를 키우게 된다.", "여인숙에 머물며 두 사람의 일을 돕기로 결심한다.", "타인의 고통에 공감하며 자신의 삶도 가치 있었음을 긍정하게 된다."], "answerIndex": 3, "a": "④ 타인의 고통에 공감하며 자신의 삶도 가치 있었음을 긍정하게 된다.", "explain": "허무함을 안고 떠난 주인공은 노파와 며느리의 비극을 접하며 타인의 고통에 공감하고, '헛살지 않았다'는 깨달음에 이른다."},
                     { points: 30, q: "노파가 '몰라요'라고 말하며 도리질을 하게 된 최초의 이유는 무엇인지 서술하시오.", a: "며느리가 남편(자신의 아들)의 피신처를 실토하지 않도록 '모른다'고 말하라고 끈질기게 가르쳤기 때문에", explain: "겁에 질린 시어머니에게 며느리가 가르친 대응이 습관으로 굳어진 것으로, 전쟁의 공포가 평생의 행동으로 남게 된 과정을 보여준다." },
                     { points: 30, q: "여인숙 아주머니의 남편은 어떻게 죽게 되었는지 서술하시오.", a: "뒷간 모퉁이에서 패잔병(인민군)과 마주친 시어머니가 반사적으로 '몰라요'를 외치자, 놀라 뛰어나온 남편이 총을 맞아 죽었다.", explain: "시어머니의 조건반사적인 도리질이 빚어낸 우발적 사건으로, 전쟁이 개인의 삶에 가한 비극성과 비합리성을 압축해 보여준다." },
                     { points: 30, q: "이 소설에서 '겨울'이라는 계절이 상징하는 바는 무엇인지 서술하시오.", a: "전쟁의 상처와 시련, 인물들이 겪는 혹독하고 힘겨운 삶을 상징한다.", explain: "혹독한 추위의 계절인 겨울은, 인물들이 견뎌야 했던 전쟁의 시련과 그 이후의 고단한 삶의 무게를 함축하는 계절적 상징으로 기능한다." },
-                    { points: 30, q: "'대사업'은 시어머니와 며느리에게 각각 무엇을 의미하는지 서술하시오.", a: "시어머니에게는 아들을 지키기 위해 시작된 도리질을 평생 하는 것, 며느리에게는 그런 시어머니를 정성껏 봉양하는 것을 의미한다.", explain: "같은 단어가 두 인물에게 각기 다른 무게로 작용한다는 점에서, 전쟁이 한 가정에 남긴 짐이 세대를 넘어 이어지고 있음을 보여준다." },
-                    { points: 30, q: "주인공 '나'가 여행을 통해 '헛살지 않았다'는 깨달음을 얻는 과정을 서술하시오.", a: "자신의 삶에 허무함을 느끼고 떠난 여행에서, 노파와 며느리의 비극적인 삶을 통해 타인의 고통을 이해하고 공감하면서 자신의 삶 또한 가치 있었음을 긍정하게 됨", explain: "자신보다 훨씬 깊은 타인의 고통을 목격하고 공감하는 과정에서, 주인공은 삶에 대한 허무를 벗고 살아가는 일의 의미를 새롭게 발견한다." },
                     { points: 30, q: "노파의 '도리질'이 상징하는 바를 두 가지 이상 서술하시오.", a: "전쟁의 비극적 기억, 아들을 지키지 못한 한과 죄책감, 가혹한 현실에 대한 거부", explain: "하나의 행동에 지울 수 없는 트라우마와 죄책감, 현실 부정이라는 여러 겹의 의미가 동시에 담겨 있다는 점에서 이 작품의 상징적 깊이를 보여준다." },
                     { points: 30, q: "이 소설의 주제를 '상처와 치유'의 관점에서 서술하시오.", a: "전쟁의 비극이 남긴 개인의 상처와, 그 상처를 서로 보듬고 공감하며 치유해 나가는 과정의 소중함", explain: "전쟁이 남긴 상처는 쉽게 사라지지 않지만, 서로를 이해하고 보듬는 인간적 연대를 통해 조금씩 치유될 수 있음을 이 작품은 보여준다." }
                 ]
@@ -413,7 +498,7 @@
                     { points: 20, q: "양반들이 쓴 시조에 이어 말뚝이가 부른 노래 가사의 첫 부분에 등장하는 지명은 어디인가요?", a: "낙양성", explain: "풍류를 즐기는 양반의 흉내를 내며 실은 그 허영과 격식을 비웃는 이중적 장면을 구성한다." },
                     { points: 20, q: "말뚝이가 '양반'이라는 단어를 조롱하며 빗댄 사물 두 가지는 무엇인가요?", a: "개잘량('양'), 개다리소반('반')", explain: "'양반'의 음을 저속한 사물에 빗대어 풀이하는 것으로, 언어유희를 통한 신랄한 신분 풍자를 보여준다." },
                     { points: 30, q: "말뚝이가 양반들을 소개할 때 온갖 벼슬을 다 지냈다고 과장하는 이유는 무엇인지 서술하시오.", a: "진짜 훌륭한 양반과는 다르게 이름만 양반인 무능하고 권위만 내세우는 양반을 조롱하고 풍자하기 위함이다.", explain: "있지도 않은 화려한 이력을 과장되게 늘어놓게 함으로써, 실속 없이 허세만 내세우는 양반 계층의 허위의식을 극대화하여 풍자한다." },
-                    { points: 30, q: "양반들이 말뚝이의 무례한 언행에도 그를 크게 벌하지 못하는 이유는 무엇인지 서술하시오.", a: "양반들이 무능하고 어리석어서 말뚝이의 조롱 의도를 제대로 파악하지 못하기 때문입니다.", explain: "양반들이 말뚝이의 말속에 담긴 조롱의 의미를 제대로 알아채지 못할 만큼 어리석고 무능하기 때문에, 하인의 반항에도 제대로 대응하지 못한다." },
+                    { points: 30, q: "양반들이 말뚝이의 무례한 언행에도 그를 크게 벌하지 못하는 이유는 무엇인지 서술하시오.", answer: "양반들이 무능하고 어리석어서 말뚝이의 조롱 의도를 제대로 파악하지 못하기 때문입니다.", a: "양반들이 무능하고 어리석어서 말뚝이의 조롱 의도를 제대로 파악하지 못하기 때문입니다.", explain: "양반들이 말뚝이의 말속에 담긴 조롱의 의미를 제대로 알아채지 못할 만큼 어리석고 무능하기 때문에, 하인의 반항에도 제대로 대응하지 못한다." },
                     { points: 30, q: "말뚝이가 양반들을 위해 잡아 놓았다고 말한 '새처'는 어떤 곳인지 서술하시오.", a: "돼지우리가 있는 마구간을 좋은 집인 것처럼 과장하여 표현한 것으로, 양반을 조롱하기 위한 공간입니다.", explain: "누추한 곳을 그럴듯하게 꾸며 말한 것 자체가, 양반을 은밀히 조롱하는 재치 있는 장치로 기능한다." },
                     { points: 30, q: "샌님과 서방님이 한 파자 놀이에서 '논두렁에 살피 짚고 섰는 자'의 정답은 무엇이었나요?", a: "논 임자", explain: "한자를 풀어 알아맞히는 파자 놀이 장면은 양반들의 지적 허세를 보여주는 동시에, 그 풀이 과정 자체가 관객에게 웃음을 유발하는 요소로 기능한다." },
                     { points: 30, q: "이 작품에서 '춤'이 가지는 역할은 무엇인지 서술하시오.", a: "인물의 성격을 드러내고(양반의 점잖은 춤, 말뚝이의 활기찬 춤), 갈등을 일시적으로 해소하거나 전환하는 역할을 합니다.", explain: "춤은 인물의 성격을 시각적으로 드러내는 동시에, 고조된 갈등을 일시적으로 완화하거나 전환하는 극적 장치로 활용된다." },
@@ -513,7 +598,7 @@
             return String(str ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
         }
 
-        // 편집 전 원본 문항을 보관
+        // 편집 전 원본 문항을 따로 보관해 두어야 "기본값으로 초기화"가 가능합니다.
         const defaultQuestionsById = {};
         literatureData.forEach(work => {
             defaultQuestionsById[work.id] = {
@@ -823,7 +908,9 @@
             }
 
             // Interactive Play Modes
-            if (activeWork.mode === 'quiz') {
+            if (activeWork.mode === 'crossword') {
+                renderCrosswordPlayer();
+            } else if (activeWork.mode === 'quiz') {
                 renderObjectiveQuizPlayer();
             } else {
                 renderTeamQuizPlayer();
@@ -845,6 +932,7 @@
                                 <span>⚙️ [${activeWork.title}] 팀 및 참가 인원 설정</span>
                             </h4>
                             <p class="text-xs text-slate-500 mt-1">참가 팀 수(2~6팀)와 팀원 이름을 등록하면 퀴즈 대결 시 개인별 점수가 자동 집계됩니다.</p>
+                            <p class="text-[11px] text-indigo-700 bg-indigo-50 border border-indigo-100 rounded-lg px-2.5 py-1.5 mt-2 leading-relaxed">💡 <strong>조 편성 팁</strong> — 이해가 빠른 학생·발표가 활발한 학생·꼼꼼한 학생이 한 팀에 몰리지 않게 섞고, 팀당 3~5명으로 인원을 맞춰 주세요. 시작 전 <button type="button" onclick="openStudentGuide()" class="underline font-bold">학생용 룰 안내</button>를 함께 읽으면 좋아요.</p>
                         </div>
                         <div class="flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 shrink-0">
                             <label for="setup-team-count-select" class="text-xs font-bold text-slate-700">참가 팀 수:</label>
@@ -1004,9 +1092,14 @@
                         <span class="text-base">👥</span>
                         <span class="text-xs font-bold text-slate-700">현재 <strong class="text-indigo-600">${teams.length}개 팀</strong> 대결 모드로 진행됩니다.</span>
                     </div>
-                    <button id="play-reconfig-btn" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-lg transition flex items-center gap-1 border border-slate-200">
-                        <span>⚙️</span> <span>팀/팀원 재설정</span>
-                    </button>
+                    <div class="flex items-center gap-2">
+                        <button type="button" onclick="openStudentGuide()" class="px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold rounded-lg transition flex items-center gap-1 border border-indigo-200">
+                            <span>🎮</span> <span>룰 안내</span>
+                        </button>
+                        <button id="play-reconfig-btn" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-lg transition flex items-center gap-1 border border-slate-200">
+                            <span>⚙️</span> <span>팀/팀원 재설정</span>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="grid ${colClass} gap-3" id="live-team-scoreboard">
@@ -1025,7 +1118,7 @@
                 <div class="flex items-center justify-between bg-white p-4 rounded-xl border border-slate-200">
                     <div class="flex items-center gap-2">
                         <span class="text-lg">🎯</span>
-                        <span class="text-xs font-bold text-slate-700">문제를 클릭하면 대형 문제창이 열리며, 여러 팀/학생 동시 득점 선택이 가능합니다.</span>
+                        <span class="text-xs font-bold text-slate-700">문제를 클릭하면 대형 문제창이 열리며, 정답 확인 후 점수를 부여할 수 있습니다.</span>
                     </div>
                     <button id="finish-game-early-btn" class="text-xs px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-lg transition">
                         결과 발표
@@ -1035,7 +1128,7 @@
                 <div class="grid grid-cols-3 sm:grid-cols-5 gap-3" id="team-quiz-board">
                     ${activeWork.questions.map((q, idx) => `
                         <button onclick="openBoardQuestion(${idx})" id="q-tile-${idx}" class="p-4 bg-white hover:bg-indigo-50 border-2 border-slate-200 hover:border-indigo-400 rounded-xl flex flex-col items-center justify-center gap-1 transition shadow-xs">
-                            <span class="text-[11px] font-semibold text-slate-400">문제 ${idx + 1}</span>
+                            <span class="text-base sm:text-lg font-black text-orange-500">문제 ${idx + 1}</span>
                             <span class="text-2xl font-black text-slate-800">${q.points}점</span>
                         </button>
                     `).join('')}
@@ -1045,9 +1138,10 @@
                 <div id="live-question-panel" class="hidden bg-white p-6 rounded-2xl border-2 border-indigo-500 shadow-xl space-y-4">
                     <div class="flex items-center justify-between border-b pb-2">
                         <span id="lq-points-badge" class="px-3 py-1 bg-indigo-100 text-indigo-800 text-xs font-black rounded-lg">10점 문항</span>
-                        <span id="lq-number" class="text-xs text-slate-400 font-bold">문제 1</span>
+                        <span id="lq-number" class="text-base sm:text-lg text-orange-500 font-black">문제 1</span>
                     </div>
                     <h4 id="lq-text" class="text-xl sm:text-2xl font-black text-slate-900 leading-snug"></h4>
+                    <div id="lq-options" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-2.5"></div>
                     
                     <div id="lq-answer-box" class="hidden p-5 bg-emerald-50 rounded-xl border-l-4 border-emerald-500 text-emerald-950 space-y-1">
                         <p class="text-xs font-bold text-emerald-700">모범 정답:</p>
@@ -1064,33 +1158,22 @@
                             <button id="lq-show-ans-btn" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl transition">
                                 정답 확인하기
                             </button>
+                            <button id="lq-no-points-btn" class="hidden px-4 py-2 bg-slate-200 hover:bg-rose-100 text-slate-700 hover:text-rose-700 border border-slate-300 text-xs font-bold rounded-lg transition flex items-center gap-1">
+                                ❌ 맞춘 사람 없음
+                            </button>
                         </div>
 
-                        <!-- Multi-Selection Awarding Area -->
-                        <div id="lq-team-award-buttons" class="hidden space-y-3 bg-slate-50 p-4 sm:p-5 rounded-xl border border-slate-200">
-                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-3">
-                                <div>
-                                    <p class="text-xs font-black text-slate-800 flex items-center gap-1.5">
-                                        <span>✨</span>
-                                        <span>정답을 맞힌 팀 또는 개인을 선택하세요 (여러 팀/개인 복수 선택 가능):</span>
-                                    </p>
-                                    <p class="text-[11px] text-slate-500 mt-0.5">선택 후 하단의 [점수 부여 완료] 버튼을 누르면 선택된 모든 대상에게 배점이 동시에 부여됩니다.</p>
-                                </div>
-                                <span id="award-selection-summary" class="text-xs font-black px-2.5 py-1 bg-indigo-100 text-indigo-800 rounded-lg shrink-0">
-                                    0곳 선택됨
-                                </span>
-                            </div>
-
-                            <div class="space-y-3 pt-1" id="award-teams-list"></div>
-
-                            <!-- Bottom Action Buttons: Multi Apply & No Points -->
-                            <div class="pt-3 border-t border-slate-200 flex flex-col sm:flex-row items-center gap-2.5">
-                                <button type="button" id="apply-multi-award-btn" class="w-full sm:flex-1 py-3 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs sm:text-sm rounded-xl transition shadow flex items-center justify-center gap-2">
-                                    <span>✅</span>
-                                    <span id="apply-multi-award-btn-text">선택된 팀/개인에게 점수 부여 (0곳) 및 다음 문제로</span>
+                        <div id="lq-team-award-buttons" class="hidden space-y-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <div class="flex items-center justify-between">
+                                <p class="text-xs font-black text-slate-700">정답을 맞힌 팀 또는 개인을 선택하세요 (점수 자동 반영):</p>
+                                <button type="button" onclick="closeActiveQuestion(true)" class="hidden sm:inline-flex items-center gap-1 text-xs font-bold text-rose-600 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 px-3 py-1 rounded-lg transition">
+                                    <span>❌</span> <span>맞춘 사람 없음</span>
                                 </button>
-                                <button type="button" onclick="closeActiveQuestion(true)" class="w-full sm:w-auto py-3 px-4 bg-slate-200 hover:bg-rose-100 hover:text-rose-700 border border-slate-300 text-slate-700 font-bold text-xs rounded-xl transition flex items-center justify-center gap-1 shrink-0">
-                                    <span>❌</span> <span>맞춘 사람 없음 (0점 처리)</span>
+                            </div>
+                            <div class="space-y-3" id="award-teams-list"></div>
+                            <div class="pt-2 border-t border-slate-200 flex justify-center">
+                                <button type="button" onclick="closeActiveQuestion(true)" class="w-full py-2.5 bg-slate-200 hover:bg-rose-100 hover:text-rose-700 hover:border-rose-300 border border-slate-300 text-slate-700 font-bold text-xs rounded-xl transition flex items-center justify-center gap-1.5 shadow-xs">
+                                    <span>❌</span> <span>맞춘 사람 없음 (점수 부여 없이 다음 문제로)</span>
                                 </button>
                             </div>
                         </div>
@@ -1130,22 +1213,20 @@
 
             let activeQIdx = null;
             let answeredTiles = 0;
-            let selectedAwardTargets = new Set();
 
             const livePanel = wrapper.querySelector('#live-question-panel');
             const lqPointsBadge = wrapper.querySelector('#lq-points-badge');
             const lqNumber = wrapper.querySelector('#lq-number');
             const lqText = wrapper.querySelector('#lq-text');
+            const lqOptions = wrapper.querySelector('#lq-options');
             const lqAnswerBox = wrapper.querySelector('#lq-answer-box');
             const lqAnswerText = wrapper.querySelector('#lq-answer-text');
             const lqExplainBox = wrapper.querySelector('#lq-explain-box');
             const lqExplainText = wrapper.querySelector('#lq-explain-text');
             const lqShowAnsBtn = wrapper.querySelector('#lq-show-ans-btn');
+            const lqNoPointsBtn = wrapper.querySelector('#lq-no-points-btn');
             const lqAwardButtons = wrapper.querySelector('#lq-team-award-buttons');
             const awardTeamsList = wrapper.querySelector('#award-teams-list');
-            const awardSelectionSummary = wrapper.querySelector('#award-selection-summary');
-            const applyMultiAwardBtn = wrapper.querySelector('#apply-multi-award-btn');
-            const applyMultiAwardBtnText = wrapper.querySelector('#apply-multi-award-btn-text');
             const playReconfigBtn = wrapper.querySelector('#play-reconfig-btn');
             const finishEarlyBtn = wrapper.querySelector('#finish-game-early-btn');
             const resultsBanner = wrapper.querySelector('#quiz-results-banner');
@@ -1159,16 +1240,33 @@
 
             window.openBoardQuestion = function(idx) {
                 activeQIdx = idx;
-                selectedAwardTargets.clear();
                 const q = activeWork.questions[idx];
                 lqNumber.textContent = `문제 ${idx + 1}`;
-                lqPointsBadge.textContent = `${q.points}점 문항`;
+                lqPointsBadge.textContent = q.options ? `🍀 행운의 객관식 · ${q.points}점` : `${q.points}점 문항`;
+                lqPointsBadge.className = q.options
+                    ? 'px-4 py-1.5 bg-amber-100 text-amber-800 border border-amber-300 text-sm sm:text-base font-black rounded-lg'
+                    : 'px-3 py-1 bg-indigo-100 text-indigo-800 text-xs font-black rounded-lg';
                 lqText.textContent = q.q;
+                lqOptions.innerHTML = '';
+                if (q.options) {
+                    const circ = ['①', '②', '③', '④'];
+                    q.options.forEach((opt, oi) => {
+                        const d = document.createElement('div');
+                        d.className = 'lq-opt p-3.5 rounded-xl border-2 border-amber-200 bg-amber-50 text-base sm:text-lg font-bold text-slate-800 leading-snug';
+                        d.dataset.idx = oi;
+                        d.textContent = `${circ[oi] || (oi + 1)} ${opt}`;
+                        lqOptions.appendChild(d);
+                    });
+                    lqOptions.classList.remove('hidden');
+                } else {
+                    lqOptions.classList.add('hidden');
+                }
                 lqAnswerText.textContent = q.a;
                 lqExplainText.textContent = q.explain || '';
                 lqAnswerBox.classList.add('hidden');
                 lqExplainBox.classList.add('hidden');
                 lqShowAnsBtn.classList.remove('hidden');
+                lqNoPointsBtn.classList.add('hidden');
                 lqAwardButtons.classList.add('hidden');
 
                 livePanel.classList.remove('hidden');
@@ -1177,13 +1275,24 @@
 
             lqShowAnsBtn.onclick = () => {
                 lqAnswerBox.classList.remove('hidden');
+                const qNow = activeWork.questions[activeQIdx];
+                if (qNow && qNow.options) {
+                    lqOptions.querySelectorAll('.lq-opt').forEach(el => {
+                        const isAns = parseInt(el.dataset.idx) === qNow.answerIndex;
+                        el.classList.toggle('border-emerald-500', isAns);
+                        el.classList.toggle('bg-emerald-100', isAns);
+                        el.classList.toggle('border-amber-200', !isAns);
+                        el.classList.toggle('bg-amber-50', !isAns);
+                        el.classList.toggle('opacity-50', !isAns);
+                    });
+                }
                 if (activeWork.questions[activeQIdx] && activeWork.questions[activeQIdx].explain) {
                     lqExplainBox.classList.remove('hidden');
                 }
                 lqShowAnsBtn.classList.add('hidden');
+                lqNoPointsBtn.classList.remove('hidden');
                 lqAwardButtons.classList.remove('hidden');
                 renderAwardTeamButtons();
-                updateAwardSelectionSummary();
             };
 
             function renderAwardTeamButtons() {
@@ -1192,37 +1301,22 @@
 
                 teams.forEach((t, tIdx) => {
                     const col = teamColorsList[tIdx] || teamColorsList[0];
-                    const teamKey = `team_${tIdx}`;
-                    const isTeamSelected = selectedAwardTargets.has(teamKey);
-
                     const teamRow = document.createElement('div');
-                    teamRow.className = `p-3 rounded-xl border transition ${isTeamSelected ? 'bg-indigo-50/70 border-indigo-500 shadow-xs ring-1 ring-indigo-400' : 'bg-white border-slate-200'}`;
+                    teamRow.className = 'p-3 bg-white rounded-lg border border-slate-200 space-y-2';
                     teamRow.innerHTML = `
-                        <div class="flex flex-wrap items-center justify-between gap-2">
-                            <div class="flex items-center gap-2">
-                                <span class="w-3 h-3 rounded-full ${col.bg}"></span>
-                                <strong class="${col.text} text-xs font-bold">${t.name}</strong>
-                                <span class="text-[11px] text-slate-400 font-mono">(현재: ${t.score}점)</span>
-                            </div>
-                            <button type="button" onclick="toggleAwardTarget('team', ${tIdx}, null)" class="px-3 py-1 rounded-lg text-xs font-black transition flex items-center gap-1.5 ${isTeamSelected ? 'bg-emerald-600 text-white shadow-xs ring-2 ring-emerald-300' : `${col.bg} text-white hover:opacity-90`}">
-                                <span>${isTeamSelected ? '✓ 선택됨' : '+ 선택'}</span>
-                                <span>팀 전체 (+${q.points}점)</span>
+                        <div class="flex items-center justify-between">
+                            <strong class="${col.text} text-xs font-bold">${t.name}</strong>
+                            <button type="button" onclick="awardPointsToTarget(${tIdx}, null)" class="px-2.5 py-1 ${col.bg} hover:opacity-90 text-white rounded-md text-[11px] font-bold">
+                                팀 전체에 +${q.points}점
                             </button>
                         </div>
                         ${t.players.length > 0 ? `
-                            <div class="flex flex-wrap gap-1.5 pt-2 border-t border-slate-100 mt-2 items-center">
-                                <span class="text-[11px] font-semibold text-slate-400 mr-1">개인 지정:</span>
-                                ${t.players.map((p, pIdx) => {
-                                    const playerKey = `player_${tIdx}_${pIdx}`;
-                                    const isPSelected = selectedAwardTargets.has(playerKey);
-                                    return `
-                                        <button type="button" onclick="toggleAwardTarget('player', ${tIdx}, ${pIdx})" class="px-2.5 py-1 rounded-md text-xs font-bold transition flex items-center gap-1 border ${isPSelected ? 'bg-emerald-600 border-emerald-600 text-white shadow-2xs ring-2 ring-emerald-300' : 'bg-slate-100 hover:bg-indigo-50 border-slate-300 text-slate-700 hover:text-indigo-700'}">
-                                            <span>${isPSelected ? '✓' : '👤'}</span>
-                                            <span>${p.name}</span>
-                                            <span class="text-[10px] opacity-80">(+${q.points})</span>
-                                        </button>
-                                    `;
-                                }).join('')}
+                            <div class="flex flex-wrap gap-1.5 pt-1">
+                                ${t.players.map((p, pIdx) => `
+                                    <button type="button" onclick="awardPointsToTarget(${tIdx}, ${pIdx})" class="px-2.5 py-1 bg-slate-100 hover:bg-indigo-50 border border-slate-300 text-slate-700 hover:text-indigo-700 rounded text-xs font-semibold transition">
+                                        👤 ${p.name} (+${q.points})
+                                    </button>
+                                `).join('')}
                             </div>
                         ` : ''}
                     `;
@@ -1230,64 +1324,19 @@
                 });
             }
 
-            window.toggleAwardTarget = function(type, tIdx, pIdx) {
-                const key = type === 'team' ? `team_${tIdx}` : `player_${tIdx}_${pIdx}`;
-                if (selectedAwardTargets.has(key)) {
-                    selectedAwardTargets.delete(key);
-                } else {
-                    selectedAwardTargets.add(key);
+            window.awardPointsToTarget = function(teamIdx, playerIdx) {
+                if (activeQIdx === null) return;
+                const points = activeWork.questions[activeQIdx].points;
+                teams[teamIdx].score += points;
+                if (playerIdx !== null && teams[teamIdx].players[playerIdx]) {
+                    teams[teamIdx].players[playerIdx].score += points;
                 }
-                renderAwardTeamButtons();
-                updateAwardSelectionSummary();
+                const scoreElem = document.getElementById(`t-score-${teamIdx}`);
+                if (scoreElem) scoreElem.textContent = `${teams[teamIdx].score}점`;
+                closeActiveQuestion(true);
             };
 
-            function updateAwardSelectionSummary() {
-                const count = selectedAwardTargets.size;
-                const points = activeQIdx !== null ? activeWork.questions[activeQIdx].points : 0;
-                awardSelectionSummary.textContent = `${count}곳 선택됨 (각 +${points}점)`;
-
-                if (count > 0) {
-                    applyMultiAwardBtnText.textContent = `선택된 ${count}곳에 점수 부여 (+${points}점) 및 다음 문제로`;
-                    applyMultiAwardBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-                } else {
-                    applyMultiAwardBtnText.textContent = `점수를 부여할 팀 또는 개인을 위에서 선택하세요`;
-                    applyMultiAwardBtn.classList.add('opacity-50', 'cursor-not-allowed');
-                }
-            }
-
-            applyMultiAwardBtn.onclick = () => {
-                if (activeQIdx === null) return;
-                if (selectedAwardTargets.size === 0) {
-                    return;
-                }
-
-                const points = activeWork.questions[activeQIdx].points;
-
-                selectedAwardTargets.forEach(key => {
-                    const parts = key.split('_');
-                    if (parts[0] === 'team') {
-                        const tIdx = parseInt(parts[1]);
-                        if (teams[tIdx]) {
-                            teams[tIdx].score += points;
-                        }
-                    } else if (parts[0] === 'player') {
-                        const tIdx = parseInt(parts[1]);
-                        const pIdx = parseInt(parts[2]);
-                        if (teams[tIdx]) {
-                            teams[tIdx].score += points;
-                            if (teams[tIdx].players && teams[tIdx].players[pIdx]) {
-                                teams[tIdx].players[pIdx].score += points;
-                            }
-                        }
-                    }
-                });
-
-                teams.forEach((t, idx) => {
-                    const scoreElem = document.getElementById(`t-score-${idx}`);
-                    if (scoreElem) scoreElem.textContent = `${t.score}점`;
-                });
-
-                selectedAwardTargets.clear();
+            lqNoPointsBtn.onclick = () => {
                 closeActiveQuestion(true);
             };
 
@@ -1302,7 +1351,6 @@
                 }
                 livePanel.classList.add('hidden');
                 activeQIdx = null;
-                selectedAwardTargets.clear();
 
                 if (answeredTiles >= activeWork.questions.length) {
                     showFinalResults();
@@ -1422,9 +1470,16 @@
                     qCard.innerHTML = `
                         <div class="flex items-start justify-between gap-3">
                             <span class="font-black text-indigo-600 text-sm">Q${idx + 1}. [${q.points}점]</span>
-                            <span class="text-xs px-2 py-0.5 rounded bg-slate-100 font-semibold text-slate-500">주관식/서술형</span>
+                            ${q.options
+                                ? '<span class="text-xs px-2 py-0.5 rounded bg-amber-100 font-bold text-amber-700">🍀 행운의 객관식</span>'
+                                : '<span class="text-xs px-2 py-0.5 rounded bg-slate-100 font-semibold text-slate-500">주관식/서술형</span>'}
                         </div>
                         <p class="font-bold text-slate-800 text-sm leading-relaxed">${q.q}</p>
+                        ${q.options ? `
+                            <ol class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs">
+                                ${q.options.map((o, oi) => `<li class="px-3 py-2 rounded-lg border ${isTeacher && oi === q.answerIndex ? 'border-emerald-400 bg-emerald-50 font-bold text-emerald-800' : 'border-slate-200 bg-slate-50 text-slate-700'}">${['①','②','③','④'][oi] || (oi + 1)} ${escapeHtml(o)}</li>`).join('')}
+                            </ol>
+                        ` : ''}
                         ${isTeacher ? `
                             <div class="p-3 bg-emerald-50 rounded-lg border-l-4 border-emerald-500 text-emerald-950 text-xs">
                                 <strong class="text-emerald-700">모범 정답:</strong> ${q.a}
@@ -1434,15 +1489,40 @@
                                     <strong class="text-sky-700">📖 해설:</strong> ${q.explain}
                                 </div>
                             ` : ''}
+                        ` : (q.options ? `
+                            <div class="p-3 bg-slate-50 rounded-lg border border-dashed border-slate-300 text-slate-400 text-xs flex justify-between items-center">
+                                <span>[정답 번호]</span>
+                                <span class="text-[11px] text-slate-400 font-mono">( &nbsp;&nbsp;&nbsp; )</span>
+                            </div>
                         ` : `
                             <div class="p-3 bg-slate-50 rounded-lg border border-dashed border-slate-300 text-slate-400 text-xs flex justify-between items-center">
                                 <span>[답안 작성란]</span>
                                 <span class="text-[11px] text-slate-400 font-mono">( 서술형 답안을 기재하세요 )</span>
                             </div>
-                        `}
+                        `)}
                     `;
                     container.appendChild(qCard);
                 });
+            } else if (activeWork.words) {
+                const listDiv = document.createElement('div');
+                listDiv.className = 'grid grid-cols-1 sm:grid-cols-2 gap-3';
+                activeWork.words.forEach((w, idx) => {
+                    const wItem = document.createElement('div');
+                    wItem.className = 'bg-white p-3.5 rounded-xl border border-slate-200 shadow-xs';
+                    wItem.innerHTML = `
+                        <div class="flex items-center justify-between text-xs mb-1">
+                            <span class="font-bold text-amber-600">${idx + 1}. 낱말 힌트</span>
+                            ${isTeacher ? `
+                                <span class="font-black bg-amber-50 text-amber-800 px-2 py-0.5 rounded border border-amber-200">${w.word}</span>
+                            ` : `
+                                <span class="font-mono bg-slate-100 text-slate-400 px-3 py-0.5 rounded border border-slate-200">(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</span>
+                            `}
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed">${w.clue}</p>
+                    `;
+                    listDiv.appendChild(wItem);
+                });
+                container.appendChild(listDiv);
             } else if (activeWork.objectiveQuestions) {
                 activeWork.objectiveQuestions.forEach((q, idx) => {
                     const qCard = document.createElement('div');
@@ -1498,9 +1578,28 @@
                             <label class="text-[11px] font-bold text-slate-500">문제 내용</label>
                             <textarea class="q-text-input w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500" rows="2" placeholder="문제를 입력하세요">${escapeHtml(q.q)}</textarea>
                         </div>
+                        ${q.options ? `
+                        <div class="space-y-1.5 p-3 rounded-lg bg-amber-50 border border-amber-200">
+                            <div class="flex items-center justify-between gap-2">
+                                <label class="text-[11px] font-bold text-amber-700">🍀 행운의 객관식 보기</label>
+                                <div class="flex items-center gap-1.5">
+                                    <label class="text-[11px] font-bold text-slate-600">정답 번호</label>
+                                    <select class="q-ans-index text-xs font-bold border border-slate-300 rounded-lg p-1 bg-white">
+                                        ${q.options.map((_, oi) => `<option value="${oi}" ${q.answerIndex === oi ? 'selected' : ''}>${['①','②','③','④'][oi]}</option>`).join('')}
+                                    </select>
+                                </div>
+                            </div>
+                            ${q.options.map((o, oi) => `
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs font-black text-amber-700 w-5">${['①','②','③','④'][oi]}</span>
+                                    <input type="text" class="q-opt-input flex-1 p-2 bg-white border border-slate-200 rounded-lg text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-400" data-oi="${oi}" value="${escapeHtml(o)}">
+                                </div>
+                            `).join('')}
+                        </div>
+                        ` : ''}
                         <div class="space-y-1">
-                            <label class="text-[11px] font-bold text-emerald-600">모범 정답</label>
-                            <textarea class="q-answer-input w-full p-2.5 bg-emerald-50 border border-emerald-200 rounded-lg text-xs text-emerald-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500" rows="2" placeholder="모범 정답을 입력하세요">${escapeHtml(q.a)}</textarea>
+                            <label class="text-[11px] font-bold text-emerald-600">모범 정답${q.options ? ' (보기·정답 번호에 맞춰 자동 입력)' : ''}</label>
+                            <textarea ${q.options ? 'readonly' : ''} class="q-answer-input w-full p-2.5 bg-emerald-50 border border-emerald-200 rounded-lg text-xs text-emerald-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500" rows="2" placeholder="모범 정답을 입력하세요">${escapeHtml(q.a)}</textarea>
                         </div>
                         <div class="space-y-1">
                             <label class="text-[11px] font-bold text-sky-600">📖 해설 (선택)</label>
@@ -1511,8 +1610,21 @@
                     card.querySelector('.q-text-input').addEventListener('input', e => { q.q = e.target.value; });
                     card.querySelector('.q-answer-input').addEventListener('input', e => { q.a = e.target.value; });
                     card.querySelector('.q-explain-input').addEventListener('input', e => { q.explain = e.target.value; });
+                    if (q.options) {
+                        const circ = ['①', '②', '③', '④'];
+                        const answerBox = card.querySelector('.q-answer-input');
+                        const syncLuckyAnswer = () => {
+                            q.a = `${circ[q.answerIndex]} ${q.options[q.answerIndex] || ''}`;
+                            answerBox.value = q.a;
+                        };
+                        card.querySelectorAll('.q-opt-input').forEach(inp => {
+                            inp.addEventListener('input', e => { q.options[parseInt(e.target.dataset.oi)] = e.target.value; syncLuckyAnswer(); });
+                        });
+                        card.querySelector('.q-ans-index').addEventListener('change', e => { q.answerIndex = parseInt(e.target.value); syncLuckyAnswer(); });
+                    }
                     card.querySelector('.q-delete-btn').addEventListener('click', () => {
-                        if (activeWork.questions.length <= 1) { return; }
+                        if (activeWork.questions.length <= 1) { alert('문제는 최소 1개 이상 있어야 합니다.'); return; }
+                        if (!confirm(`Q${idx + 1}번 문제를 삭제할까요? (저장 전까지는 되돌릴 수 있습니다)`)) return;
                         activeWork.questions.splice(idx, 1);
                         renderQuestionsTab();
                     });
@@ -1550,7 +1662,8 @@
                         radio.addEventListener('change', e => { if (e.target.checked) q.answerIndex = parseInt(e.target.value); });
                     });
                     card.querySelector('.oq-delete-btn').addEventListener('click', () => {
-                        if (activeWork.objectiveQuestions.length <= 1) { return; }
+                        if (activeWork.objectiveQuestions.length <= 1) { alert('문제는 최소 1개 이상 있어야 합니다.'); return; }
+                        if (!confirm(`Q${idx + 1}번 문제를 삭제할까요? (저장 전까지는 되돌릴 수 있습니다)`)) return;
                         activeWork.objectiveQuestions.splice(idx, 1);
                         renderQuestionsTab();
                     });
@@ -1563,9 +1676,15 @@
             const actionBar = document.createElement('div');
             actionBar.className = 'flex flex-col sm:flex-row items-center justify-between gap-3 bg-white p-4 rounded-xl border border-slate-200 shadow-xs';
             actionBar.innerHTML = `
-                <button id="q-add-btn" type="button" class="w-full sm:w-auto px-4 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-bold rounded-xl transition flex items-center justify-center gap-1.5">
-                    <span>➕</span> <span>새 문제 추가</span>
-                </button>
+                <div class="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto">
+                    <button id="q-add-btn" type="button" class="w-full sm:w-auto px-4 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-bold rounded-xl transition flex items-center justify-center gap-1.5">
+                        <span>➕</span> <span>새 문제 추가</span>
+                    </button>
+                    ${activeWork.questions ? `
+                    <button id="q-add-lucky-btn" type="button" class="w-full sm:w-auto px-4 py-2.5 bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-300 text-xs font-bold rounded-xl transition flex items-center justify-center gap-1.5">
+                        <span>🍀</span> <span>행운의 객관식 추가</span>
+                    </button>` : ''}
+                </div>
                 <div class="flex items-center gap-2 w-full sm:w-auto">
                     <button id="q-reset-btn" type="button" class="flex-1 sm:flex-none px-4 py-2.5 text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-xl transition">
                         ↩️ 기본 문항으로 초기화
@@ -1576,6 +1695,17 @@
                 </div>
             `;
             container.appendChild(actionBar);
+
+            const addLuckyBtn = actionBar.querySelector('#q-add-lucky-btn');
+            if (addLuckyBtn) addLuckyBtn.onclick = () => {
+                activeWork.questions.push({ points: 20, lucky: true, q: '', options: ['', '', '', ''], answerIndex: 0, a: '① ', explain: '' });
+                renderQuestionsTab();
+                requestAnimationFrame(() => {
+                    const cards = modalViewContainer.querySelectorAll('.q-edit-card');
+                    const last = cards[cards.length - 1];
+                    if (last) { last.scrollIntoView({ behavior: 'smooth', block: 'center' }); const ta = last.querySelector('textarea'); if (ta) ta.focus(); }
+                });
+            };
 
             actionBar.querySelector('#q-add-btn').onclick = () => {
                 if (activeWork.questions) {
@@ -1596,6 +1726,7 @@
             };
 
             actionBar.querySelector('#q-reset-btn').onclick = () => {
+                if (!confirm('이 작품에서 편집한 내용을 모두 지우고 기본 문항으로 되돌릴까요? 이 작업은 되돌릴 수 없습니다.')) return;
                 resetActiveWorkQuestions();
                 renderQuestionsTab();
                 renderCards();
@@ -1605,11 +1736,20 @@
                 const list = activeWork.questions || activeWork.objectiveQuestions;
                 const emptyIdx = list.findIndex(q => !q.q || !q.q.trim());
                 if (emptyIdx !== -1) {
+                    alert(`Q${emptyIdx + 1}번 문제의 내용이 비어 있습니다. 내용을 입력한 후 저장해주세요.`);
                     return;
+                }
+                if (activeWork.questions) {
+                    const badLucky = activeWork.questions.findIndex(q => q.options && q.options.some(o => !o || !o.trim()));
+                    if (badLucky !== -1) {
+                        alert(`Q${badLucky + 1}번(행운의 객관식) 문제의 보기 중 빈 칸이 있습니다. 모든 보기를 입력해주세요.`);
+                        return;
+                    }
                 }
                 if (activeWork.objectiveQuestions) {
                     const badIdx = activeWork.objectiveQuestions.findIndex(q => q.options.some(o => !o || !o.trim()));
                     if (badIdx !== -1) {
+                        alert(`Q${badIdx + 1}번 문제의 보기 중 빈 칸이 있습니다. 모든 보기를 입력해주세요.`);
                         return;
                     }
                 }
@@ -1621,6 +1761,8 @@
                 if (ok) {
                     saveBtn.textContent = '✅ 저장 완료!';
                     setTimeout(() => { if (saveBtn.isConnected) saveBtn.textContent = '💾 변경사항 저장'; }, 1500);
+                } else {
+                    alert('저장에 실패했습니다. 브라우저 저장 공간이 가득 찼을 수 있습니다.');
                 }
             };
         }
@@ -1650,6 +1792,100 @@
             `;
             container.appendChild(box);
             modalViewContainer.appendChild(container);
+        }
+
+        function renderCrosswordPlayer() {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'max-w-4xl mx-auto space-y-6';
+            wrapper.innerHTML = `
+                <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl flex items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">🧩</span>
+                        <div>
+                            <h4 class="font-bold text-amber-950 text-sm">만세전 20대 핵심 어휘 가로세로 퍼즐</h4>
+                            <p class="text-xs text-amber-800">힌트를 읽고 알맞은 소설 속 어휘를 맞혀보세요.</p>
+                        </div>
+                    </div>
+                    <button id="toggle-word-answers" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-lg transition">
+                        정답 전체 확인
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs max-h-[50vh] overflow-y-auto space-y-2.5">
+                        <h5 class="font-bold text-slate-800 text-sm border-b pb-2">낱말 힌트 목록</h5>
+                        <div id="crossword-clues-list" class="space-y-2">
+                            ${activeWork.words.map((w, idx) => `
+                                <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200 text-xs flex justify-between items-center gap-2">
+                                    <div>
+                                        <strong class="text-amber-700">${idx + 1}.</strong> ${w.clue}
+                                    </div>
+                                    <span class="font-bold text-slate-400 crossword-ans-tag hidden px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 shrink-0">
+                                        ${w.word}
+                                    </span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-xs flex flex-col items-center justify-center space-y-4">
+                        <div class="w-full text-center">
+                            <span class="text-xs font-bold text-slate-500">어휘 플래시카드</span>
+                            <div id="flashcard-box" class="mt-3 p-6 bg-slate-900 text-white rounded-2xl shadow-inner min-h-[160px] flex flex-col items-center justify-center text-center space-y-3">
+                                <span id="fc-number" class="text-xs text-amber-400 font-bold">1 / 20</span>
+                                <p id="fc-clue" class="text-xs sm:text-sm font-medium text-slate-200 leading-relaxed">${activeWork.words[0].clue}</p>
+                                <button id="fc-reveal-btn" class="px-3 py-1 bg-amber-500 text-slate-950 font-bold text-xs rounded-lg hover:bg-amber-400">정답 확인</button>
+                                <p id="fc-answer" class="text-2xl font-black text-emerald-400 hidden">${activeWork.words[0].word}</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button id="fc-prev-btn" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-bold rounded-lg transition">◀ 이전</button>
+                            <button id="fc-next-btn" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg transition">다음 ▶</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            modalViewContainer.appendChild(wrapper);
+
+            let fcIdx = 0;
+            const fcNumber = wrapper.querySelector('#fc-number');
+            const fcClue = wrapper.querySelector('#fc-clue');
+            const fcAnswer = wrapper.querySelector('#fc-answer');
+            const fcRevealBtn = wrapper.querySelector('#fc-reveal-btn');
+            const fcPrevBtn = wrapper.querySelector('#fc-prev-btn');
+            const fcNextBtn = wrapper.querySelector('#fc-next-btn');
+            const toggleAnsBtn = wrapper.querySelector('#toggle-word-answers');
+
+            function updateCard() {
+                fcNumber.textContent = `${fcIdx + 1} / ${activeWork.words.length}`;
+                fcClue.textContent = activeWork.words[fcIdx].clue;
+                fcAnswer.textContent = activeWork.words[fcIdx].word;
+                fcAnswer.classList.add('hidden');
+                fcRevealBtn.classList.remove('hidden');
+            }
+
+            fcRevealBtn.onclick = () => {
+                fcAnswer.classList.remove('hidden');
+                fcRevealBtn.classList.add('hidden');
+            };
+
+            fcPrevBtn.onclick = () => {
+                if (fcIdx > 0) { fcIdx--; updateCard(); }
+            };
+
+            fcNextBtn.onclick = () => {
+                if (fcIdx < activeWork.words.length - 1) { fcIdx++; updateCard(); }
+            };
+
+            let showingAll = false;
+            toggleAnsBtn.onclick = () => {
+                showingAll = !showingAll;
+                wrapper.querySelectorAll('.crossword-ans-tag').forEach(tag => {
+                    tag.classList.toggle('hidden', !showingAll);
+                });
+                toggleAnsBtn.textContent = showingAll ? '정답 숨기기' : '정답 전체 확인';
+            };
         }
 
         function renderObjectiveQuizPlayer() {
@@ -1767,8 +2003,13 @@
                 questionsHtml = work.questions.map((q, idx) => `
                     <div style="margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px dashed #cbd5e1; page-break-inside: avoid;">
                         <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 13px; color: #1e293b; margin-bottom: 5px;">
-                            <span>${idx + 1}. [${q.points}점] ${q.q}</span>
+                            <span>${idx + 1}. [${q.points}점]${q.options ? ' 🍀' : ''} ${q.q}</span>
                         </div>
+                        ${q.options ? `
+                            <div style="font-size: 12px; color: #334155; margin: 4px 0 0 14px; line-height: 1.7;">
+                                ${q.options.map((o, oi) => `<div>${['①','②','③','④'][oi] || (oi + 1)} ${escapeHtml(o)}</div>`).join('')}
+                            </div>
+                        ` : ''}
                         ${isTeacher ? `
                             <div style="background-color: #ecfdf5; border-left: 4px solid #10b981; padding: 8px 12px; font-size: 12px; color: #065f46; margin-top: 6px;">
                                 <strong>[모범 답안]</strong> ${q.a}
@@ -1779,12 +2020,26 @@
                                 </div>
                             ` : ''}
                         ` : `
-                            <div style="height: 48px; border: 1px solid #e2e8f0; background-color: #f8fafc; border-radius: 4px; margin-top: 6px; padding: 4px 8px; font-size: 11px; color: #94a3b8;">
-                                답안 작성:
+                            <div style="height: ${q.options ? 24 : 48}px; border: 1px solid #e2e8f0; background-color: #f8fafc; border-radius: 4px; margin-top: 6px; padding: 4px 8px; font-size: 11px; color: #94a3b8;">
+                                ${q.options ? '정답 번호:' : '답안 작성:'}
                             </div>
                         `}
                     </div>
                 `).join('');
+            } else if (work.words) {
+                questionsHtml = `
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        ${work.words.map((w, idx) => `
+                            <div style="border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px; background-color: #ffffff; page-break-inside: avoid;">
+                                <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px;">
+                                    <strong style="color: #b45309;">${idx + 1}. 어휘 힌트</strong>
+                                    ${isTeacher ? `<span style="background-color: #fef3c7; color: #92400e; padding: 1px 6px; border-radius: 4px; font-weight: bold;">${w.word}</span>` : `<span style="color: #94a3b8;">( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )</span>`}
+                                </div>
+                                <p style="font-size: 11.5px; color: #334155; margin: 0; line-height: 1.4;">${w.clue}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
             } else if (work.objectiveQuestions) {
                 questionsHtml = work.objectiveQuestions.map((q, idx) => `
                     <div style="margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px dashed #cbd5e1; page-break-inside: avoid;">
@@ -1912,6 +2167,13 @@
         modalPrintBtn.addEventListener('click', openPrintWindow);
 
         // Guide Modal Events
+        const studentGuideModal = document.getElementById('student-guide-modal');
+        window.openStudentGuide = () => studentGuideModal.classList.remove('hidden');
+        const closeStudentGuide = () => studentGuideModal.classList.add('hidden');
+        document.getElementById('open-student-guide-btn').addEventListener('click', window.openStudentGuide);
+        document.getElementById('close-student-guide-btn').addEventListener('click', closeStudentGuide);
+        document.getElementById('close-student-guide-btn-bottom').addEventListener('click', closeStudentGuide);
+        studentGuideModal.addEventListener('click', (e) => { if (e.target === studentGuideModal) closeStudentGuide(); });
         openGuideBtn.addEventListener('click', () => guideModal.classList.remove('hidden'));
         closeGuideBtn.addEventListener('click', () => guideModal.classList.add('hidden'));
         closeGuideBtnBottom.addEventListener('click', () => guideModal.classList.add('hidden'));
